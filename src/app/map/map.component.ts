@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '../location';
 import { Map, divIcon, marker, geoJSON, latLng, tileLayer, Browser, Layer, GeoJSON, Icon, LayerGroup, Control, LatLngExpression, LatLng } from 'leaflet';
 
 
@@ -13,10 +12,6 @@ import { Map, divIcon, marker, geoJSON, latLng, tileLayer, Browser, Layer, GeoJS
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  location: Location = {
-    id: 1,
-    name: 'Broward Dining'
-  };
 
   private map: Map;
 
@@ -53,8 +48,7 @@ export class MapComponent implements OnInit {
         //landscape labels
         tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Landscape_Labels/MapServer/tile/{z}/{y}/{x}', {
                     attribution: 'gis.ufl.edu'
-        }),
-        marker([29.641569, -82.346252])
+        })
 
         /*street labels -> 404 error
         tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Street_Labels/MapServer/tile/{z}/{y}/{x}', {
