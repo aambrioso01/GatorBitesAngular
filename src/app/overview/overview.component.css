@@ -1,0 +1,50 @@
+.restaurants {
+  border: 1px black solid;
+  list-style: none;
+  padding-left: 10px;
+}
+
+
+.restaurants li {
+    color: black;
+    list-style-type: none;
+    border: 1px black solid;
+    cursor: pointer;
+    position: relative;
+    height: 100px;
+ }
+
+.restaurants li:hover {
+  color: #2c3a41;
+  background-color: #e6e6e6;
+}
+
+.restaurants li.selected {
+  background-color: black;
+  color: white;
+}
+
+.restaurants li.selected:hover {
+  background-color: #505050;
+  color: white;
+}
+
+.restaurants li.selected:active {
+  background-color: black;
+  color: white;
+ }
+
+#locations-list {
+  background-color: rgba(128,138,135,0.2);
+}
+
+p {
+  padding: 0px 5px;
+  color: green
+}
+
+#directions-link {
+  float: right;
+  font-size: 20px;
+  margin-right: 10px;
+}
