@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { OverviewComponent } from './overview/overview.component';
 import { OverviewDetailComponent } from './overview-detail/overview-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { OverviewDetailComponent } from './overview-detail/overview-detail.compo
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     LeafletModule
   ],
   providers: [],

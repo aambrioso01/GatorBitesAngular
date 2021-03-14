@@ -4,13 +4,33 @@ import * as L from 'leaflet';
 import 'leaflet-bing-layer';
 import 'leaflet.locatecontrol';
 import { locatecontrol, locationfound, locate} from 'leaflet.locatecontrol'
-import { GeoJsonTypes, Feature, GeoJsonObject } from 'geojson';
+import { GeoJsonTypes, Feature, FeatureCollection, GeoJsonObject } from 'geojson';
+import * as geojson from 'geojson';
 
 import { HttpClient } from '@angular/common/http';
 
 
 const BING_KEY = 'AgmwdPOAELwcyd_a30Y6Xq9qD_1YS11OuStJ0YDv1VeDNrG3fECPG7PkIYJtAKEw';
 var vm;
+
+
+
+// var diningGeoJSON(<geojson.Feature>{
+//   "type": "Feature",
+//   "geometry": {
+//     "type": "Point",
+//     "coordinates": [-82.34316087863382, 29.64636443982178, 0]
+//   },
+//   "properties": {
+//     "BLDG": "0551",
+//     "ROOM": "173",
+//     "Name": "P.O.D. Market",
+//     "ID": "82",
+//     "CUSTOM_ICON": "pod.png",
+//     "CUSTOM_POPUP": "<b>P.O.D. Market</b><br><p>Hours Coming Soon!</p>"
+//   }
+// });
+
 
 @Component({
   selector: 'app-map',
@@ -19,9 +39,9 @@ var vm;
 })
 export class MapComponent implements OnInit {
 
+  json;
 
-
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   private map: Map;
   private sub: any;
@@ -43,6 +63,13 @@ export class MapComponent implements OnInit {
   }
 
   onMapReady(map: Map) {
+
+    this.http.get("assets/dining.json").subscribe((json: any) => {
+      console.log(json);
+      this.json = json;
+      L.geoJSON(this.json).addTo(map);
+    });
+
     this.map = map;
 
     //var gatorDiningMarker = marker([29.641569, -82.346252]).addTo(map);
@@ -107,6 +134,12 @@ export class MapComponent implements OnInit {
 
     var locator = new (L as any).Control.Locate();
     locator.addTo(this.map);
+
+    // var myLayer = L.geoJSON().addTo(map);
+    // myLayer.addData(diningGeoJSON);
+
+   
+
 
 
   }
