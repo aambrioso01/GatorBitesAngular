@@ -57,7 +57,10 @@ export class MapComponent implements OnInit {
   searchedBldgName;
 
   ngOnInit(): void {
-
+    vm = this;
+    
+    this.http.get('assets/boundaries.json')
+      .subscribe((data) => this.loadBoundaries(data));
 
 
   }
@@ -138,7 +141,7 @@ export class MapComponent implements OnInit {
     // var myLayer = L.geoJSON().addTo(map);
     // myLayer.addData(diningGeoJSON);
 
-   
+    
 
 
 
@@ -165,6 +168,62 @@ export class MapComponent implements OnInit {
 
   };
 
+  style(feature) {
+    return {
+      fillColor: '#2196F3',
+      weight: 0,
+      opacity: 1,
+      color: '#2196F3',
+      dashArray: '3',
+      fillOpacity: 0.0
+    };
+  }
 
+  hoveredStyle(feature) {
+    return {
+      weight: 5,
+      color: '#0D47A1',
+      dashArray: '',
+      fillOpacity: 0.2
+    };
+  }
+
+  loadBoundaries(data): void {
+    this.boundariesLayer = geoJSON(data, {
+      style: this.style,
+      onEachFeature: function onEachFeature(feature, layer) {
+        layer.on({
+          mouseover: function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle(vm.hoveredStyle());
+            if (!Browser.ie && !Browser.opera && !Browser.edge) {
+              layer.bringToFront();
+            }
+          },
+          mouseout: function resetHighlight(e) {
+            var layer = e.target;
+            layer.setStyle(vm.style());
+            if (!Browser.ie && !Browser.opera && !Browser.edge) {
+              layer.bringToFront();
+            }
+          },
+          click: function zoomToFeature(e) {
+            var layer = e.target;
+            vm.zone.run(() => { vm.openBuildingDialog(layer); });
+          }
+        });
+      }
+    })
+     this.boundariesLayer.addTo(this.map);
+    // if (this.id != null) {
+    //   var obj = { "item": { "BLDG": this.id } };
+    //   this.handleSearchResults(obj);
+    // }
+
+    // if (this.sched != null) {
+    //   this.showSchedule();
+    // }
+  }
+ 
 
 }
