@@ -56,22 +56,60 @@ export class MapComponent implements OnInit {
   searchedBldg;
   searchedBldgName;
 
+  
+
   ngOnInit(): void {
     vm = this;
-    
+
     this.http.get('assets/boundaries.json')
       .subscribe((data) => this.loadBoundaries(data));
+
+      let testIcon = L.Icon.extend({
+        options: {
+          iconUrl: "assets/chickfila.png",
+          iconSize: [20, 20]
+          //iconAnchor: [22, 94],
+          //popupAnchor: [-3, -76]
+        }
+      });
+
+      const cfaIcon = new testIcon();
+
+      vm.marker([-82.3451407691284, 29.648388096492884], { icon: cfaIcon }).bindPopup('I am a green leaf.').addTo(vm.map);
+
+      
 
 
   }
 
   onMapReady(map: Map) {
 
-    this.http.get("assets/dining.json").subscribe((json: any) => {
+    this.http.get("assets/test-dining.json").subscribe((json: any) => {
       console.log(json);
       this.json = json;
-      L.geoJSON(this.json).addTo(map);
+      var myLayer = L.geoJSON(this.json);
+
+      const anIcon = divIcon({
+        html: '<span class="fa-stack"><i class="fas fa-circle fa-stack-2x" style="color: #' + '795548' + ';"></i><i class="fal fa-stack-1x white-text ' + 'fas fa-utensils' + '"></i></span>',
+        iconSize: [100, 100],
+        className: 'mapIcon'
+      });
+  
+      myLayer = geoJSON(this.json, {
+        pointToLayer: function (feature, latlng) {
+          var mark = marker(latlng, { icon: feature.properties.CUSTOM_ICON ? new Icon({ iconUrl: 'assets/' + feature.properties.CUSTOM_ICON, iconSize: [40, 40] }) : anIcon });
+          if (feature.properties.CUSTOM_POPUP) {
+            mark.bindPopup(feature.properties.CUSTOM_POPUP);
+          }
+          return mark;
+        }
+      })
+  
+      myLayer.addTo(this.map);
+    
     });
+
+    
 
     this.map = map;
 
@@ -140,7 +178,6 @@ export class MapComponent implements OnInit {
 
     // var myLayer = L.geoJSON().addTo(map);
     // myLayer.addData(diningGeoJSON);
-
     
 
 
@@ -167,6 +204,8 @@ export class MapComponent implements OnInit {
     zoom: 15,
 
   };
+
+  
 
   style(feature) {
     return {
@@ -224,6 +263,8 @@ export class MapComponent implements OnInit {
     //   this.showSchedule();
     // }
   }
+
+
  
 
 }

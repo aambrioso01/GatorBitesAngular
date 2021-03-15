@@ -33,3 +33,10 @@
     stroke-width: 1;
  }
 }
+
+.mapIcon {
+  text-align: center;
+  /* Horizontally center the text (icon) */
+  line-height: 20px;
+  /* Vertically center the text (icon) */
+}

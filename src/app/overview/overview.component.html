@@ -27,9 +27,10 @@
 <div id ="locations-list">
   <ul class="restaurants">
     <li *ngFor="let location of restaurants" [class.selected]="location === selectedLocation" (click)="onSelect(location)">
-      <h5 id="display-name"><span class="badge">{{location.id}}</span> {{location.name}}</h5>
+      <h5 style = "margin : 0; padding-top:0;" id="display-name"><span class="badge">{{location.id}}</span> {{location.name}}</h5>
       <a href="https://www.google.com/maps" target="_blank" id="directions-link">Directions</a>
-      <p>Building: {{location.address}}</p>
+      <p style = "margin : 0; padding-top:0;">Building: {{location.address}}</p>
+      <p style= "margin : 0; padding-top:0; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p>
       <p>Open Today: {{location.hours}}</p>
     </li>
   </ul>
