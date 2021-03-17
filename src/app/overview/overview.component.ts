@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RESTAURANTS } from '../mock-restaurants';
+import { Component, OnInit, Input } from '@angular/core';
+//import { RESTAURANTS } from '../mock-restaurants';
+import { Location } from '../location';
+import { RestaurantService } from '../restaurant.service';
 
 @Component({
   selector: 'app-overview',
@@ -8,16 +10,25 @@ import { RESTAURANTS } from '../mock-restaurants';
 })
 export class OverviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private restaurantService: RestaurantService) { }
 
-  ngOnInit(): void {
+  getRestaurants(): void {
+    this.restaurantService.getRestaurants()
+      .subscribe(restaurants => this.restaurants = restaurants);
   }
 
-  restaurants = RESTAURANTS;
+  ngOnInit() {
+    this.getRestaurants();
+  }
+
+  //restaurants = RESTAURANTS;
+  restaurants: Location[] = [];
 
   selectedLocation?: Location;
   onSelect(location: Location): void {
     this.selectedLocation = location;
   }
+
+  @Input() location?: Location;
 
 }
