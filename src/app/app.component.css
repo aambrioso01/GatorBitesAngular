@@ -9,7 +9,8 @@
 }
 
 #overview-main {
-  border: 1px grey solid;
-  padding: 2px;
-  background-color: rgba(65,105,225,0.2);
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  font-family: "quadon", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
