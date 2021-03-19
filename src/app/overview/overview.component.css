@@ -1,46 +1,47 @@
+
 .restaurants {
-  border: 1px black solid;
   list-style: none;
   padding-left: 10px;
+  border: 1px #0021A5 solid;
 }
 
 
 .restaurants li {
-    color: black;
+    color: #0021A5;
     list-style-type: none;
-    border: 1px black solid;
+    border: 1px #0021A5 solid;
     cursor: pointer;
     position: relative;
     height: 100px;
  }
 
 .restaurants li:hover {
-  color: #2c3a41;
-  background-color: #e6e6e6;
+  background-color: #6C9AC3;
+  color: #0021A5;
 }
 
 .restaurants li.selected {
-  background-color: black;
-  color: white;
+  background-color: #6C9AC3;
+  color: #0021A5;
 }
 
 .restaurants li.selected:hover {
-  background-color: #505050;
-  color: white;
+  background-color: #6C9AC3;
+  color: #0021A5;
 }
 
 .restaurants li.selected:active {
-  background-color: black;
-  color: white;
+  background-color: #6C9AC3;
+  color: #0021A5;
  }
 
 #locations-list {
-  background-color: rgba(128,138,135,0.2);
+  background-color: white;
 }
 
 p {
-  padding: 0px 5px;
-  color: green
+  padding: 0px 10px;
+  color: black;
 }
 
 #directions-link {
