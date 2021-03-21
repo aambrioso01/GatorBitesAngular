@@ -3,6 +3,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '../location';
 import { RestaurantService } from '../restaurant.service';
 
+import { ApiService } from '.././api.service';
+
+
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
