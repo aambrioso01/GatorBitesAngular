@@ -1,0 +1,126 @@
+{
+  "type": "FeatureCollection",
+  "crs": { "type": "name", "properties": { "name": "EPSG:4326" } },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.34116449362168, 29.647010059092832, 0]
+      },
+      "properties": {
+        "BLDG": "1011",
+        "ROOM": "0100 ",
+        "Name": "Broward Dining Center",
+        "ID": "8",
+        "CUSTOM_ICON": "utensils.png",
+        "CUSTOM_POPUP": "<b>Broward Dining Center</b><br><p>Hours Coming Soon!</p>"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.34791371167911, 29.645760050693234, 0]
+      },
+      "properties": {
+        "BLDG": "0886",
+        "ROOM": "1480A ",
+        "Name": "Pollo Tropical",
+        "ID": "41",
+        "CUSTOM_ICON": "pollo.png",
+        "CUSTOM_POPUP": "<b>Pollo Tropical</b><br><p>Hours Coming Soon!</p>"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.34282569208905, 29.651173534132578, 0]
+      },
+      "properties": {
+        "BLDG": "0689",
+        "ROOM": "147",
+        "Name": "Starbucks",
+        "ID": "24",
+        "CUSTOM_ICON": "starbs.png",
+        "CUSTOM_POPUP": "<b>Starbucks</b><br><p>Hours Coming Soon!</p>"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.34316087863382, 29.64636443982178, 0]
+      },
+      "properties": {
+        "BLDG": "0551",
+        "ROOM": "173",
+        "Name": "P.O.D. Market",
+        "ID": "82",
+        "CUSTOM_ICON": "pod.png",
+        "CUSTOM_POPUP": "<b>P.O.D. Market</b><br><p>Hours Coming Soon!</p>"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.34777523074666, 29.646476825888328, 0]
+      },
+      "properties": {
+        "BLDG": "0686",
+        "ROOM": "G430 ",
+        "Name": "P.O.D. Market",
+        "ID": "69",
+        "CUSTOM_ICON": "pod.png",
+        "CUSTOM_POPUP": "<b>P.O.D. Market</b><br><p>Hours Coming Soon!</p>"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.34445876483842, 29.648659473145347, 0]
+      },
+      "properties": {
+        "BLDG": "0267",
+        "ROOM": "1409 ",
+        "Name": "Firehouse Subs",
+        "ID": "31",
+        "CUSTOM_ICON": "firehouse.png",
+        "CUSTOM_POPUP": "<b>Firehouse Subs</b><br><p>Hours Coming Soon!</p>"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.35012991223326, 29.64799308394271, 0]
+      },
+      "properties": {
+        "BLDG": "0359",
+        "ROOM": "0102",
+        "Name": "Gator Corner Dining Center",
+        "ID": "10",
+        "CUSTOM_ICON": "utensils.png",
+        "CUSTOM_POPUP": "<b>Gator Corner Dining Center</b><br><p>Hours Coming Soon!</p>"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.3451407691284, 29.648388096492884, 0]
+      },
+      "properties": {
+        "BLDG": "0032",
+        "ROOM": "101 ",
+        "Name": "Chick-fil-A",
+        "ID": "12",
+        "CUSTOM_ICON": "chickfila.png",
+        "CUSTOM_POPUP": "<b>Chick-fil-A</b><br><p>Hours Coming Soon!</p>"
+      }
+    }
+  ]
+}

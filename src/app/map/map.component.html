@@ -1,0 +1,16 @@
+<!-- angular testing
+<div>
+  <label for='name'>Location name: </label>
+  <input id='name' [(ngModel)]="location.name" placeholder="name">
+</div>
+<div><span>id: </span>{{location.id}}</div>
+<div><span>name: </span>{{location.name}}</div>
+-->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+<!-- Leaftet implementation -->
+<div class="container-fluid" id="map" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)"></div>
