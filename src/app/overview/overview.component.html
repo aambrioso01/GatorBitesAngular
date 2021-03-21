@@ -32,7 +32,9 @@
   <div id="locations-list">
     <ul class="restaurants">
       <li *ngFor="let location of restaurants" [class.selected]="location === selectedLocation" (click)="onSelect(location)">
+        <a href='https://www.google.com/maps/?q= {{location.name}} ' target="_blank">
         <button id="btn_dir" style="float: right;background-color: white;border:none;background-image: url(assets/img_dir.png); height: 40px; width: 40px;"></button>
+        </a>
         <p style="float: right;">1.0 km</p>
         <h5 style = "margin: 0; padding-top: 0;" id="display-name"><span class="badge">{{location.id}}</span> {{location.name}}</h5>
         <p style = "margin: 0; padding-top: 0;">Building: {{location.address}}</p>
