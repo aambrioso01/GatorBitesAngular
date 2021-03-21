@@ -1,9 +1,11 @@
-<div *ngIf="location" style=" padding: 5px 20px; border:2px #0021A5 solid;">
-  <img class="img-responsive" src="https://pbs.twimg.com/profile_images/913804511499526144/_F-9PuFZ.jpg" alt="restaurant-logo" style="margin: 0 auto; width: 250px; height: 250px; border:0px blue solid;">
-  <h3 style="color: #0021A5;font-family: 'gentona', 'Georgia', serif; "><b>{{location.name }}</b></h3>
-  <div style="padding: 0px 5px;font-size: 20px;"><span>ID: </span>{{location.id}}</div>
-  <div style="padding: 0px 5px;font-size: 20px;"><span>Address: </span>{{location.address}}</div>
-  <div style="padding: 0px 5px;font-size: 20px;"><span>Open Hours: </span>{{location.hours}}</div>
-  <p style="font-size: 20px; padding: 0px 5px;"><a href="https://gatordining.com/menu/" target="_blank" style="color: #0021A5;">View Menu</a></p>
+<div *ngIf="location" style=" padding: 20px;">
+  <img [src]="'https://stars.facilities.ufl.edu/public/api/photos/photo?bldg='+location.properties.BLDG" width="100%" alt="Building Photo"/>
+  <!-- <img class="img-responsive" src="https://pbs.twimg.com/profile_images/913804511499526144/_F-9PuFZ.jpg" alt="restaurant-logo" style="margin: 0 auto; width: 300px; height: 400px; border:1px blue solid;"> -->
+  <h2>{{location.properties.Name}}</h2>
+  <div><span>id: </span>{{location.properties.ID}}</div>
+  <div>{{location.properties.buildingName}}</div>
+  <br>
+  <div><b>{{getDay(location.properties)}}</b></div>
+  <div *ngFor="let day of getWeek(location.properties)">{{day}}</div>
+  <p style="font-size: 20px; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p>
 </div>
-

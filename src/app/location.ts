@@ -1,6 +1,12 @@
 export interface Location {
-  id: number;
-  name: string;
-  address: string;
-  hours: string;
-}
+    dinlocid: number;
+    locName: string;
+    Monday: string;
+    Tuesday: string;
+    Wednesday: string;
+    Thursday: string;
+    Friday: string;
+    Saturday: string;
+    Sunday: string;  
+  }
+  
