@@ -13,4 +13,8 @@ describe('ApiService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 529001c223a2afc4963a10ae0424fd0a99d1ca80

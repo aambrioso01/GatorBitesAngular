@@ -8,6 +8,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { OverviewComponent } from './overview/overview.component';
 import { OverviewDetailComponent } from './overview-detail/overview-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './api.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     LeafletModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
