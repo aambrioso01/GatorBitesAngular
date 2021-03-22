@@ -1,8 +1,14 @@
-
+.sidebar
+{
+  overflow-y: scroll;
+  height: 95vh;
+}
 .restaurants {
   list-style: none;
   padding-left: 10px;
   border: 1px #0021A5 solid;
+  overflow-y: scroll;
+  height: 80vh;
 }
 
 
@@ -37,6 +43,7 @@
 
 #locations-list {
   background-color: white;
+  
 }
 
 p {

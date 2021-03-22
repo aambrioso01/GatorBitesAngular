@@ -4,9 +4,10 @@
 </div>
 
 <!-- display details of specified location -->
-<app-overview-detail [location]="selectedLocation"></app-overview-detail>
+<div class="sidebar">
+  <app-overview-detail [location]="selectedLocation"></app-overview-detail>
 
-<div>
+<div >
   <!-- search bar -->
   <div class="container" style=" padding-top: 20px;">
     <form action="">
@@ -31,14 +32,16 @@
 
   <!-- display list of dining locations -->
   <div id="locations-list">
-    <ul class="restaurants">
-      <li *ngFor="let location of dinings$.features" [class.selected]="location === selectedLocation" (click)="onSelect(location)">
+    <ul class="restaurants" >
+      <li *ngFor="let location of dinings$.features" [class.selected]="location === selectedLocation" (click)="onSelect(location)" >
         <h5 style="margin : 0; padding-top:0;" id="display-name"><span class="badge">{{location.properties.ID}}</span> {{location.properties.Name}}</h5>
         <a href="https://www.google.com/maps" target="_blank" id="directions-link">Directions</a>
         <p style="margin : 0; padding-top:0;">{{location.properties.buildingName}}</p>
-        <!-- <p style="margin : 0; padding-top:0; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p> -->
+        <p style="margin : 0; padding-top:0; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p> 
         <p>Hours today: {{getDay(location.properties)}}</p>
       </li>
     </ul>
   </div>
 </div>
+</div>
+

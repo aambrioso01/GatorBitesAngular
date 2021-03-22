@@ -62,42 +62,26 @@ export class MapComponent implements OnInit {
     vm = this;
 
     this.http.get('assets/boundaries.json')
-      .subscribe((data) => this.loadBoundaries(data));
-
-      let testIcon = L.Icon.extend({
-        options: {
-          iconUrl: "assets/chickfila.png",
-          iconSize: [20, 20]
-          //iconAnchor: [22, 94],
-          //popupAnchor: [-3, -76]
-        }
-      });
-
-      const cfaIcon = new testIcon();
-
-      vm.marker([-82.3451407691284, 29.648388096492884], { icon: cfaIcon }).bindPopup('I am a green leaf.').addTo(vm.map);
-
-      
-
+      .subscribe((data) => this.loadBoundaries(data))
 
   }
 
   onMapReady(map: Map) {
 
-    this.http.get("assets/test-dining.json").subscribe((json: any) => {
+    this.http.get("assets/dining.json").subscribe((json: any) => {
       console.log(json);
       this.json = json;
       var myLayer = L.geoJSON(this.json);
 
       const anIcon = divIcon({
-        html: '<span class="fa-stack"><i class="fas fa-circle fa-stack-2x" style="color: #' + '795548' + ';"></i><i class="fal fa-stack-1x white-text ' + 'fas fa-utensils' + '"></i></span>',
-        iconSize: [100, 100],
+        //html: '<span class="fa-stack"><i class="fas fa-circle fa-stack-2x" style="color: #' + '795548' + ';"></i><i class="fal fa-stack-1x white-text ' + 'fas fa-utensils' + '"></i></span>',
+        //iconSize: [20, 20],
         className: 'mapIcon'
       });
   
       myLayer = geoJSON(this.json, {
         pointToLayer: function (feature, latlng) {
-          var mark = marker(latlng, { icon: feature.properties.CUSTOM_ICON ? new Icon({ iconUrl: 'assets/' + feature.properties.CUSTOM_ICON, iconSize: [40, 40] }) : anIcon });
+          var mark = marker(latlng, { icon: feature.properties.CUSTOM_ICON ? new Icon({ iconUrl: 'assets/' + feature.properties.CUSTOM_ICON, iconSize: [30, 30] }) : anIcon });
           if (feature.properties.CUSTOM_POPUP) {
             mark.bindPopup(feature.properties.CUSTOM_POPUP);
           }
@@ -173,7 +157,13 @@ export class MapComponent implements OnInit {
     landscape_labels.addTo(this.map);
 
 
-    var locator = new (L as any).Control.Locate();
+    var locator = new (L as any).Control.Locate(
+      {
+        keepCurrentZoomLevel: true
+      }
+    );
+
+    //locator.initialZoomLevel(false);
     locator.addTo(this.map);
 
     // var myLayer = L.geoJSON().addTo(map);
@@ -194,12 +184,9 @@ export class MapComponent implements OnInit {
       //campus basemap
 
 
-      
-
-
 
     ],
-    center: [29.6436, -82.3549],
+    center: [29.644533, -82.351683],
     minZoom: 15,
     zoom: 15,
 
