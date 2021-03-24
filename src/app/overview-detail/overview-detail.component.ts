@@ -11,7 +11,16 @@ export class OverviewDetailComponent implements OnInit {
 
   constructor() { }
 
+  @Input() list: boolean;
+
   ngOnInit(): void {
+    this.list = true;
+  }
+
+  public toggle() {
+    console.log(this.list);
+    this.list = this.list?false:true;
+    
   }
 
   @Input() location?: Location;
