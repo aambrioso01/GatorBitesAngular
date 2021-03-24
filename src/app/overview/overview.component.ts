@@ -18,6 +18,16 @@ export class OverviewComponent implements OnInit {
   //     .subscribe(restaurants => this.restaurants = restaurants);
   // }
   name: '';
+
+  //public list:boolean;
+
+  list = true;
+
+  receiveList($event) {
+    this.list = $event;
+  }
+
+
   locations$: Location[] = [];
   dinings$: any = (dining as any).default;
   buildings$: any = (building as any).default;
@@ -26,6 +36,8 @@ export class OverviewComponent implements OnInit {
   headers:any;
 
   async ngOnInit() {
+    this.list = true;
+    
     await this.api.getLocation().then(val => this.locations$ = val);
     for (let i = 0; i < this.dinings$.features.length; i++) {
       let id = Number(this.dinings$.features[i].properties.ID);
@@ -80,7 +92,14 @@ export class OverviewComponent implements OnInit {
   onSelect(location: Location): void {
     this.selectedLocation = location;
     console.log(this.selectedLocation);
+
+    this.list = true;
+    console.log(this.list);
+
+    //window.scroll(0,0);
   }
+
+
 
   addProperties(i, found, building) {
     this.dinings$.features[i].properties['Monday'] = found.Monday;
@@ -210,8 +229,5 @@ export class OverviewComponent implements OnInit {
     return hrs;
   }
 
-
-
   @Input() location?: Location;
-
 }

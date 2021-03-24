@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '../location';
 
 @Component({
@@ -11,7 +11,19 @@ export class OverviewDetailComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  @Input() list: boolean;
+
+  list2: boolean = false;
+
+  @Output() listEvent = new EventEmitter<boolean>();
+
+  ngOnInit(): void {}
+
+  toggle() {
+    //this.list2 = this.list2?false:true;
+    this.listEvent.emit(this.list2);
+    console.log("list2 = " + this.list2);
+    
   }
 
   @Input() location?: Location;
