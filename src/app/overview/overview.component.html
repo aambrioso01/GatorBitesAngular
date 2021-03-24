@@ -5,7 +5,8 @@
 
 <!-- display details of specified location -->
 <div class="sidebar">
-  <app-overview-detail [location]="selectedLocation"></app-overview-detail>
+  <!--list: {{list}}-->
+  <app-overview-detail [location]="selectedLocation" [list]="list" (listEvent)="receiveList($event)"></app-overview-detail><!-- [list]="list" -->
 
 <div>
   <!-- search bar -->
@@ -30,7 +31,7 @@
   </div>
 
   <!-- display list of dining locations -->
-  <div id="locations-list">
+  <div  id="locations-list">
     <ul class="restaurants" >
       <li *ngFor="let location of dinings$.features" [class.selected]="location === selectedLocation" (click)="onSelect(location)" >
         

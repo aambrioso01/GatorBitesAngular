@@ -21,7 +21,14 @@ export class OverviewComponent implements OnInit {
   //     .subscribe(restaurants => this.restaurants = restaurants);
   // }
 
-  public list:boolean;
+  //public list:boolean;
+
+  list = true;
+
+  receiveList($event) {
+    this.list = $event;
+  }
+
 
   locations$: Location[] = [];
   dinings$: any = (dining as any).default;
@@ -60,6 +67,8 @@ export class OverviewComponent implements OnInit {
 
     this.list = true;
     console.log(this.list);
+
+    //window.scroll(0,0);
   }
 
 

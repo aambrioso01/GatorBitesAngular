@@ -1,6 +1,7 @@
-<!--<div *ngIf="list" class="ng-hide">-->
+<div *ngIf="list" class="ng-hide">
 <div *ngIf="location" style=" padding: 20px; ">
   <div>
+    <!--list: {{list}}-->
     <button (click)="toggle()">Exit</button>
   </div>
 
@@ -13,4 +14,5 @@
   <div style="padding: 0px 5px;font-size: 18px;"><b>{{getDay(location.properties)}}</b></div>
   <div style="padding: 0px 5px;font-size: 18px;" *ngFor="let day of getWeek(location.properties)">{{day}}</div>
   <p style="font-size: 18px;padding: 0px 5px;"><a href="https://gatordining.com/menu/" target="_blank" style="color:#0021A5;">View Menu</a></p>
+</div>
 </div>
