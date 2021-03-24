@@ -9,13 +9,15 @@ import { OverviewComponent } from './overview/overview.component';
 import { OverviewDetailComponent } from './overview-detail/overview-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     OverviewComponent,
-    OverviewDetailComponent
+    OverviewDetailComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

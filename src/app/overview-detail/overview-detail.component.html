@@ -2,10 +2,26 @@
   <img [src]="'https://stars.facilities.ufl.edu/public/api/photos/photo?bldg='+location.properties.BLDG" width="100%" alt="Building Photo"/>
   <!-- <img class="img-responsive" src="https://pbs.twimg.com/profile_images/913804511499526144/_F-9PuFZ.jpg" alt="restaurant-logo" style="margin: 0 auto; width: 300px; height: 400px; border:1px blue solid;"> -->
   <h2>{{location.properties.Name}}</h2>
-  <div><span>id: </span>{{location.properties.ID}}</div>
+  <!-- <div><span>id: </span>{{location.properties.ID}}</div> -->
   <div>{{location.properties.buildingName}}</div>
   <br>
-  <div><b>{{getDay(location.properties)}}</b></div>
-  <div *ngFor="let day of getWeek(location.properties)">{{day}}</div>
+  <div *ngIf="location.properties.B_Monday; else normalTimes">
+    <div><b>Hours today</b></div>
+    <div *ngFor="let day of todaysHours(location.properties)">{{day}}</div>
+<br>
+    <div><b>Breakfast</b></div>
+    <div *ngFor="let bfast of breakfastHours(location.properties)">{{bfast}}</div>
+<br>
+    <div><b>Lunch</b></div>
+    <div *ngFor="let lun of lunchHours(location.properties)">{{lun}}</div>
+<br>
+    <div><b>Dinner</b></div>
+    <div *ngFor="let din of dinnerHours(location.properties)">{{din}}</div>
+
+  </div>
+  <ng-template #normalTimes>
+    <div><b>{{getDay(location.properties)}}</b></div>
+    <div *ngFor="let day of getWeek(location.properties)">{{day}}</div>
+  </ng-template>  
   <p style="font-size: 20px; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p>
 </div>

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OverviewComponent } from './overview.component';
+import { FilterPipe } from '.././filter.pipe';
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
