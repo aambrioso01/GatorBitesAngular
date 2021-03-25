@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
+import {MapComponent} from '../map/map.component';
 //import { RESTAURANTS } from '../mock-restaurants';
 import { Location } from '../location';
 import { RestaurantService } from '../restaurant.service';
@@ -15,20 +16,21 @@ import * as building from '../.././assets/boundaries.json'
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-
-  // getRestaurants(): void {
-  //   this.restaurantService.getRestaurants()
-  //     .subscribe(restaurants => this.restaurants = restaurants);
-  // }
+  @Input() location?: Location;
+  @Input() selectedLocationID: string;
 
   locations$: Location[] = [];
   dinings$: any = (dining as any).default;
   buildings$: any = (building as any).default;
 
+  
+
   constructor(private api: ApiService) {}
   headers:any;
 
   async ngOnInit() {
+
+    
     await this.api.getLocation().then(val => this.locations$ = val);
     for (let i = 0; i < this.dinings$.features.length; i++) {
       let id = Number(this.dinings$.features[i].properties.ID);
@@ -46,9 +48,8 @@ export class OverviewComponent implements OnInit {
     }
     console.log(this.dinings$);
   }
-  //restaurants = RESTAURANTS;
-  // restaurants: Location[] = [];
-
+ 
+  
   selectedLocation?: Location;
   onSelect(location: Location): void {
     this.selectedLocation = location;
@@ -99,7 +100,21 @@ export class OverviewComponent implements OnInit {
   }
 
 
-
-  @Input() location?: Location;
+  
+  
+  // ngOnChanges(changes: SimpleChanges)
+  // {
+  //   for(let i =0; i < this.locations$.length; i++)
+  //   {
+  //     let id = Number(this.dinings$.features[i].properties.ID);
+  //     let found = this.locations$.find(item => item.dinlocid === id);
+  //     // if(this.selectedLocationID == id)
+  //     // {
+  //     //   this.selectedLocation = found;
+  //     // }
+  //   }
+  //   console.log(changes);
+  // }
+  
 
 }

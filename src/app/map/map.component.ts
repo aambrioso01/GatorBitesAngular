@@ -1,35 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Map, divIcon, marker, geoJSON, latLng, tileLayer, Browser, Layer, GeoJSON, Icon, LayerGroup, Control, LatLngExpression, LatLng } from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet-bing-layer';
 import 'leaflet.locatecontrol';
-import { locatecontrol, locationfound, locate} from 'leaflet.locatecontrol'
+import { locatecontrol, locationfound, locate } from 'leaflet.locatecontrol'
 import { GeoJsonTypes, Feature, FeatureCollection, GeoJsonObject } from 'geojson';
 import * as geojson from 'geojson';
 
 import { HttpClient } from '@angular/common/http';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { DepFlags } from '@angular/compiler/src/core';
+
+//import { debug } from 'node:console';
 
 
 const BING_KEY = 'AgmwdPOAELwcyd_a30Y6Xq9qD_1YS11OuStJ0YDv1VeDNrG3fECPG7PkIYJtAKEw';
 var vm;
+var selectedLocationID;
+var message;
+var flag: boolean = false;
 
-
-
-// var diningGeoJSON(<geojson.Feature>{
-//   "type": "Feature",
-//   "geometry": {
-//     "type": "Point",
-//     "coordinates": [-82.34316087863382, 29.64636443982178, 0]
-//   },
-//   "properties": {
-//     "BLDG": "0551",
-//     "ROOM": "173",
-//     "Name": "P.O.D. Market",
-//     "ID": "82",
-//     "CUSTOM_ICON": "pod.png",
-//     "CUSTOM_POPUP": "<b>P.O.D. Market</b><br><p>Hours Coming Soon!</p>"
-//   }
-// });
 
 
 @Component({
@@ -39,9 +29,16 @@ var vm;
 })
 export class MapComponent implements OnInit {
 
+  @Output() messageEvent = new EventEmitter<String>();
   json;
-
+  
   constructor(private http: HttpClient) { }
+
+  sendData(data: any[])
+  {
+    console.log('i am from map componennt');
+    console.log(data);
+  }
 
   private map: Map;
   private sub: any;
@@ -56,7 +53,13 @@ export class MapComponent implements OnInit {
   searchedBldg;
   searchedBldgName;
 
-  
+
+  //even with nothing in here, this code still has to be here for overview to update with id?
+  sendMessage() 
+  {
+    
+  }
+
 
   ngOnInit(): void {
     vm = this;
@@ -68,6 +71,8 @@ export class MapComponent implements OnInit {
 
   onMapReady(map: Map) {
 
+    
+
     this.http.get("assets/dining.json").subscribe((json: any) => {
       console.log(json);
       this.json = json;
@@ -78,28 +83,57 @@ export class MapComponent implements OnInit {
         //iconSize: [20, 20],
         className: 'mapIcon'
       });
-  
+
+      
+
       myLayer = geoJSON(this.json, {
         pointToLayer: function (feature, latlng) {
           var mark = marker(latlng, { icon: feature.properties.CUSTOM_ICON ? new Icon({ iconUrl: 'assets/' + feature.properties.CUSTOM_ICON, iconSize: [30, 30] }) : anIcon });
           if (feature.properties.CUSTOM_POPUP) {
             mark.bindPopup(feature.properties.CUSTOM_POPUP);
+            mark.on('click', markerOnClick);
+            //mark.on('click', sendMessage);
+            //selectedLocationID = feature.properties.ID;
+            //message = selectedLocationID;
+            //console.log(selectedLocationID);
           }
+
+          
+
+          function markerOnClick(e) {
+            //sets location ID when marker is clicked
+            selectedLocationID = feature.properties.ID;
+            
+            
+            message = selectedLocationID;
+            vm.messageEvent.emit(message);
+            
+            //flag = true;
+            //this.messageEvent.emit(message);
+            //emits string ID to parent component (app)
+            //this.childToParent.emit(selectedLocationID);
+            console.log("Selected ID on map:" + selectedLocationID);
+          }
+
+          
+
           return mark;
         }
       })
-  
+
       myLayer.addTo(this.map);
-    
+
+      
+
     });
 
-    
+
 
     this.map = map;
 
     //var gatorDiningMarker = marker([29.641569, -82.346252]).addTo(map);
 
-    
+
 
     var grey_basemap = (L as any).tileLayer.bing({
       bingMapsKey: BING_KEY,
@@ -124,17 +158,17 @@ export class MapComponent implements OnInit {
     });
 
     //building labels
-    var building_labels =tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Building_Labels/MapServer/tile/{z}/{y}/{x}', {
+    var building_labels = tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Building_Labels/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'gis.ufl.edu'
     });
 
     //landscape labels
-    var landscape_labels =tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Landscape_Labels/MapServer/tile/{z}/{y}/{x}', {
+    var landscape_labels = tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Landscape_Labels/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'gis.ufl.edu'
     });
 
     //street labels -> 404 error
-    var street_labels =tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Street_Labels/MapServer/tile/{z}/{y}/{x}', {
+    var street_labels = tileLayer('https://tiles.arcgis.com/tiles/IiuFUnlkob76Az9k/arcgis/rest/services/Street_Labels/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'gis.ufl.edu'
     });
 
@@ -168,7 +202,7 @@ export class MapComponent implements OnInit {
 
     // var myLayer = L.geoJSON().addTo(map);
     // myLayer.addData(diningGeoJSON);
-    
+
 
 
 
@@ -192,7 +226,11 @@ export class MapComponent implements OnInit {
 
   };
 
-  
+  // private onStateChangeEvent = (event: any) => {
+    
+  //   this.messageEvent.emit(selectedLocationID); 
+  //   console.log("reached here: " + selectedLocationID);
+  // }
 
   style(feature) {
     return {
@@ -240,7 +278,7 @@ export class MapComponent implements OnInit {
         });
       }
     })
-     this.boundariesLayer.addTo(this.map);
+    this.boundariesLayer.addTo(this.map);
     // if (this.id != null) {
     //   var obj = { "item": { "BLDG": this.id } };
     //   this.handleSearchResults(obj);
@@ -252,6 +290,8 @@ export class MapComponent implements OnInit {
   }
 
 
- 
+
 
 }
+
+
