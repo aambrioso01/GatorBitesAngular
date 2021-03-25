@@ -1,31 +1,24 @@
-import { Component, Input, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import {MapComponent} from './map/map.component';
-var currentID;
+import { Component } from '@angular/core';
+import { OverviewComponent } from './overview/overview.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent  {
   title = 'Gator Bites';
-
 
   constructor () { }
 
-  message = currentID;
+  message;
 
-  receiveMessage($event):string {
+  myOverviewComp = new OverviewComponent(null);
+
+  receiveMessage($event) {
     this.message = $event;
-    currentID = this.message;
-    console.log("Parent received ID as: " + this.message);
-    return this.message;
+    this.myOverviewComp.setLocationOnMarker();
+    //console.log("Parent received ID as: " + this.message);  
   }
-
-  setID(): string
-  {
-    console.log("Overiew should update now.");
-    return currentID;
-    
-  }
+  
 }

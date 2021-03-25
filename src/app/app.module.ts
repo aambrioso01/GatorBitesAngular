@@ -10,6 +10,7 @@ import { OverviewDetailComponent } from './overview-detail/overview-detail.compo
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { FilterPipe } from './filter.pipe';
+import { SelectionService } from './selection.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { FilterPipe } from './filter.pipe';
     HttpClientModule,
     LeafletModule
   ],
-  providers: [ApiService],
+  providers: [ApiService , SelectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

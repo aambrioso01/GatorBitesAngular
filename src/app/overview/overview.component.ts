@@ -1,26 +1,30 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
-import {MapComponent} from '../map/map.component';
 //import { RESTAURANTS } from '../mock-restaurants';
 import { Location } from '../location';
 import { RestaurantService } from '../restaurant.service';
 import { ApiService } from '.././api.service';
+import { SelectionService } from '.././selection.service';
 import * as dining from '../.././assets/dining.json'
 import * as building from '../.././assets/boundaries.json'
+
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css']
+  styleUrls: ['./overview.component.css'],
+  providers: [
+    SelectionService
+  ]
 })
 export class OverviewComponent implements OnInit {
-  @Input() location?: Location;
-  @Input() selectedLocationID: string;
 
-  // getRestaurants(): void {
-  //   this.restaurantService.getRestaurants()
-  //     .subscribe(restaurants => this.restaurants = restaurants);
-  // }
+  private _selectedLocationID: number;
+
+  @Input() location?: Location;
+  @Input() selectedLocationID: String;
+
   name: '';
+  message: string;
 
   //public list:boolean;
 
@@ -30,20 +34,30 @@ export class OverviewComponent implements OnInit {
     this.list = $event;
   }
 
+  setLocationOnMarker() {
+    //console.log("this.selectedLocationID: " + this._selectedLocationID);
+    let id = this.selectedLocationID;
+    let found = this.dinings$.features.find(item => item.properties.ID === id);
+    this.selectedLocation = found;
+    //console.log("ID: " + id);
+    //console.log("Found: " + found);
+    //console.log(this.dinings$.features);
+  }
+
 
   locations$: Location[] = [];
   dinings$: any = (dining as any).default;
   buildings$: any = (building as any).default;
 
-  
 
-  constructor(private api: ApiService) {}
-  headers:any;
+
+  constructor(private api: ApiService) { }
+  headers: any;
 
   async ngOnInit() {
 
     this.list = true;
-    
+
     await this.api.getLocation().then(val => this.locations$ = val);
     for (let i = 0; i < this.dinings$.features.length; i++) {
       let id = Number(this.dinings$.features[i].properties.ID);
@@ -63,9 +77,9 @@ export class OverviewComponent implements OnInit {
         this.addDinner(i, found);
 
         this.dinings$.features[i].properties['buildingName'] = building.properties.PropName;
-      // } else if (id == 48) {
-      //   console.log(found);
-      //   console.log(this.dinings$.features[i]);
+        // } else if (id == 48) {
+        //   console.log(found);
+        //   console.log(this.dinings$.features[i]);
         // delete this.dinings$.features[i];
         // this.dinings$.features.splice(i, 1);
       } else if (id == 8) {
@@ -89,10 +103,18 @@ export class OverviewComponent implements OnInit {
         // let removed = this.dinings$.features.splice(i, 1);
       }
     }
-    console.log(this.dinings$);
+    //console.log(this.dinings$);
+
+    //this.locations$
   }
- 
-  
+
+  //if selectedLocationID updates, call function to set location from marker ID
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedLocationID']) {
+      this.setLocationOnMarker()
+    }
+  }
+
   selectedLocation?: Location;
   onSelect(location: Location): void {
     this.selectedLocation = location;
@@ -148,26 +170,26 @@ export class OverviewComponent implements OnInit {
   }
 
 
-  getDay(loc : Location){
+  getDay(loc: Location) {
     var today = (new Date()).getDay();
     if (today == 0) {
       return loc.Sunday;
     } else if (today == 1) {
-      return loc.Monday;      
+      return loc.Monday;
     } else if (today == 2) {
-      return loc.Tuesday;      
+      return loc.Tuesday;
     } else if (today == 3) {
-      return loc.Wednesday;            
+      return loc.Wednesday;
     } else if (today == 4) {
-      return loc.Thursday;            
+      return loc.Thursday;
     } else if (today == 5) {
-      return loc.Friday;            
+      return loc.Friday;
     } else if (today == 6) {
-      return loc.Saturday;            
+      return loc.Saturday;
     }
   }
 
-  getDiningHallDay(loc : Location) {
+  getDiningHallDay(loc: Location) {
     var today = (new Date()).getDay();
     var hour = (new Date()).getHours();
 
@@ -175,55 +197,55 @@ export class OverviewComponent implements OnInit {
       if (today == 0) {
         return loc.B_Sunday;
       } else if (today == 1) {
-        return loc.B_Monday;      
+        return loc.B_Monday;
       } else if (today == 2) {
-        return loc.B_Tuesday;      
+        return loc.B_Tuesday;
       } else if (today == 3) {
-        return loc.B_Wednesday;            
+        return loc.B_Wednesday;
       } else if (today == 4) {
-        return loc.B_Thursday;            
+        return loc.B_Thursday;
       } else if (today == 5) {
-        return loc.B_Friday;            
+        return loc.B_Friday;
       } else if (today == 6) {
-        return loc.B_Saturday;            
+        return loc.B_Saturday;
       }
     } else if (hour < 16) {
       if (today == 0) {
         return loc.L_Sunday;
       } else if (today == 1) {
-        return loc.L_Monday;      
+        return loc.L_Monday;
       } else if (today == 2) {
-        return loc.L_Tuesday;      
+        return loc.L_Tuesday;
       } else if (today == 3) {
-        return loc.L_Wednesday;            
+        return loc.L_Wednesday;
       } else if (today == 4) {
-        return loc.L_Thursday;            
+        return loc.L_Thursday;
       } else if (today == 5) {
-        return loc.L_Friday;            
+        return loc.L_Friday;
       } else if (today == 6) {
-        return loc.L_Saturday;            
+        return loc.L_Saturday;
       }
     } else {
       if (today == 0) {
         return loc.D_Sunday;
       } else if (today == 1) {
-        return loc.D_Monday;      
+        return loc.D_Monday;
       } else if (today == 2) {
-        return loc.D_Tuesday;      
+        return loc.D_Tuesday;
       } else if (today == 3) {
-        return loc.D_Wednesday;            
+        return loc.D_Wednesday;
       } else if (today == 4) {
-        return loc.D_Thursday;            
+        return loc.D_Thursday;
       } else if (today == 5) {
-        return loc.D_Friday;            
+        return loc.D_Friday;
       } else if (today == 6) {
-        return loc.D_Saturday;            
+        return loc.D_Saturday;
       }
     }
   }
 
-  getHours(loc : Location) {
-    let hrs : any[];
+  getHours(loc: Location) {
+    let hrs: any[];
     hrs.push("Sunday: " + loc.Sunday);
     hrs.push("Monday: " + loc.Monday);
     hrs.push("Tuesday: " + loc.Tuesday);
@@ -234,23 +256,4 @@ export class OverviewComponent implements OnInit {
     return hrs;
   }
 
-
-  
-  
-  // ngOnChanges(changes: SimpleChanges)
-  // {
-  //   for(let i =0; i < this.locations$.length; i++)
-  //   {
-  //     let id = Number(this.dinings$.features[i].properties.ID);
-  //     let found = this.locations$.find(item => item.dinlocid === id);
-  //     // if(this.selectedLocationID == id)
-  //     // {
-  //     //   this.selectedLocation = found;
-  //     // }
-  //   }
-  //   console.log(changes);
-  // }
-  
-
-  
 }
