@@ -34,10 +34,10 @@
     <ul class="restaurants">
       <li *ngFor="let location of dinings$.features | filter: name" [class.selected]="location === selectedLocation" (click)="onSelect(location)" >
         
-        <a href='https://www.google.com/maps/?q= {{location.properties.Name}}+Gainesville+Florida' target="_blank">
+        <a href='https://maps.google.com/?q={{location.geometry.coordinates[1]}},{{location.geometry.coordinates[0]}}' target="_blank">
         <button id="btn_dir" style="float: right;background-color: white;border:none;background-image: url(assets/img_dir.png); height: 40px; width: 40px;"></button>
         </a>
-        <p style="float: right;">1.0 km</p>
+        <p style="float: right;">{{getDistance(location.geometry.coordinates[1],location.geometry.coordinates[0])}}</p>
 
         <h5 style="margin : 0; padding-top:0;" id="display-name">{{location.properties.Name}}</h5>
         <p style="margin : 0; padding-top:0;">{{location.properties.buildingName}}</p>
