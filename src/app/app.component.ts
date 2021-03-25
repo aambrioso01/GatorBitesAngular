@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OverviewComponent } from './overview/overview.component';
+import { OverviewDetailComponent } from './overview-detail/overview-detail.component';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,15 @@ export class AppComponent  {
   message;
 
   myOverviewComp = new OverviewComponent(null);
+  myOverviewDetailComp = new OverviewDetailComponent();
 
   receiveMessage($event) {
     this.message = $event;
     this.myOverviewComp.setLocationOnMarker();
+    this.myOverviewDetailComp.setOverview();
     //console.log("Parent received ID as: " + this.message);  
   }
+
+
   
 }

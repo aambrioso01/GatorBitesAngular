@@ -39,6 +39,7 @@ export class OverviewComponent implements OnInit {
     let id = this.selectedLocationID;
     let found = this.dinings$.features.find(item => item.properties.ID === id);
     this.selectedLocation = found;
+    this.list = true;
     //console.log("ID: " + id);
     //console.log("Found: " + found);
     //console.log(this.dinings$.features);

@@ -20,9 +20,7 @@ import { OverviewComponent } from '../overview/overview.component';
 
 const BING_KEY = 'AgmwdPOAELwcyd_a30Y6Xq9qD_1YS11OuStJ0YDv1VeDNrG3fECPG7PkIYJtAKEw';
 var vm;
-var selectedLocationID;
 var message;
-var l;
 
 
 
@@ -58,10 +56,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   searchedBldgName;
   message:string;
 
-  setMarkerOnLocation()
-  {
-    
-  }
+  
 
   reloadGeoJSONLayer(map: Map)
   {

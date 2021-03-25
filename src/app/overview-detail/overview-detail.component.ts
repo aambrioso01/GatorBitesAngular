@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '../location';
+import * as dining from '../.././assets/dining.json'
 
 @Component({
   selector: 'app-overview-detail',
@@ -11,13 +12,26 @@ export class OverviewDetailComponent implements OnInit {
 
   constructor() { }
 
+  dinings$: any = (dining as any).default;
+
   @Input() list: boolean;
+  @Input() selectedLocationID: String;
 
   list2: boolean = false;
 
   @Output() listEvent = new EventEmitter<boolean>();
 
   ngOnInit(): void {}
+
+  setOverview() {
+    //console.log("this.selectedLocationID: " + this._selectedLocationID);
+    let id = this.selectedLocationID;
+    let found = this.dinings$.features.find(item => item.properties.ID === id);
+    this.location = found;
+    //console.log("ID: " + id);
+    //console.log("Found: " + found);
+    //console.log(this.dinings$.features);
+  }
 
   toggle() {
     //this.list2 = this.list2?false:true;
