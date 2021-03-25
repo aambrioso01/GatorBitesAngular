@@ -35,7 +35,7 @@
                 "ROOM": "0104",
                 "Name": "Boar's Head",
                 "ID": "76",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Boar's Head<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -54,7 +54,7 @@
                 "ROOM": "0102",
                 "Name": "KFC",
                 "ID": "78",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>KFC<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -73,7 +73,7 @@
                 "ROOM": "0106",
                 "Name": "We Proudly Serve Starbucks",
                 "ID": "81",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "starbs.png",
                 "CUSTOM_POPUP": "<b>We Proudly Serve Starbucks<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -92,7 +92,7 @@
                 "ROOM": "0102",
                 "Name": "Gator Corner Dining Center",
                 "ID": "10",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Gator Corner Dining Center<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -111,7 +111,7 @@
                 "ROOM": "0105",
                 "Name": "P.O.D Market",
                 "ID": "80",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "pod.png",
                 "CUSTOM_POPUP": "<b>P.O.D Market<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -149,7 +149,7 @@
                 "ROOM": "0103",
                 "Name": "Freshens",
                 "ID": "77",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Freshens<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -168,7 +168,7 @@
                 "ROOM": "0101",
                 "Name": "Little Hall Express",
                 "ID": "79",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Little Hall Express<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -206,7 +206,7 @@
                 "ROOM": "1311 ",
                 "Name": "Chomp & Go",
                 "ID": "18",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Chomp & Go<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -320,7 +320,7 @@
                 "ROOM": "C1-151 ",
                 "Name": "Salad Creations",
                 "ID": "27",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Salad Creations<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -453,7 +453,7 @@
                 "ROOM": "0108 ",
                 "Name": "Java City\/ We Proudly Brew Starbucks",
                 "ID": "17",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Java City\/ We Proudly Brew Starbucks<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -472,7 +472,7 @@
                 "ROOM": "194 ",
                 "Name": "Chomp & Go",
                 "ID": "15",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Chomp & Go<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -529,7 +529,7 @@
                 "ROOM": "138 ",
                 "Name": "Chomp & Go",
                 "ID": "6",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Chomp & Go<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -567,7 +567,7 @@
                 "ROOM": "1430 ",
                 "Name": "Croutons",
                 "ID": "35",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Croutons<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -681,7 +681,7 @@
                 "ROOM": "G440 ",
                 "Name": "Shake Smart",
                 "ID": "70",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Shake Smart<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -700,7 +700,7 @@
                 "ROOM": "G106 ",
                 "Name": "Wing Zone Orange & Brew",
                 "ID": "62",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Wing Zone Orange & Brew<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -719,7 +719,7 @@
                 "ROOM": "4015 ",
                 "Name": "Arredondo Cafe",
                 "ID": "33",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Arredondo Cafe<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -757,7 +757,7 @@
                 "ROOM": "0100B ",
                 "Name": "Shake Smart",
                 "ID": "9",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>Shake Smart<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -852,7 +852,7 @@
                 "ROOM": "129 ",
                 "Name": "We Proudly Serve Starbucks",
                 "ID": "60",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "starbs.png",
                 "CUSTOM_POPUP": "<b>We Proudly Serve Starbucks<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
@@ -985,7 +985,7 @@
                 "ROOM": "0115 ",
                 "Name": "The Market",
                 "ID": "87",
-                "CUSTOM_ICON": "",
+                "CUSTOM_ICON": "utensils.png",
                 "CUSTOM_POPUP": "<b>The Market<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         }
