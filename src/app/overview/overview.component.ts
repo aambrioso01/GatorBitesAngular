@@ -54,6 +54,8 @@ export class OverviewComponent implements OnInit {
 
   constructor(private api: ApiService) { }
   headers: any;
+  
+  curr_position: number[] = [29.64636443982178, -82.34316087863382];
 
   async ngOnInit() {
 
@@ -255,6 +257,22 @@ export class OverviewComponent implements OnInit {
     hrs.push("Friday: " + loc.Friday);
     hrs.push("Saturday: " + loc.Saturday);
     return hrs;
+  }
+  
+  getDistance(lat: number, lon: number) {
+    var radLat1 = lat * Math.PI / 180.0;
+    var radLat2 = this.curr_position[0] * Math.PI / 180.0;
+    var a = radLat1 - radLat2;
+    var b = lon * Math.PI / 180.0 - this.curr_position[1] * Math.PI / 180.0;
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+    s = s * 6378.137;
+    s = Math.round(s * 10000) / 10000;
+    if (s >= 1) {
+      return s.toPrecision(2) + "km";
+    }
+    else {
+      return Number((s * 1000).toPrecision(3)).toFixed(0) + "m";
+    }
   }
 
 }
