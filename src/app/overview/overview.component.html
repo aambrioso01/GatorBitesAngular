@@ -6,7 +6,6 @@
 
 <!-- display details of specified location -->
 <div class="sidebar">
-  <!--list: {{list}}-->
   <app-overview-detail [location]="selectedLocation" [list]="list" (listEvent)="receiveList($event)"></app-overview-detail><!-- [list]="list" -->
 
 <div>
@@ -26,14 +25,13 @@
     </span>
     <select id="sort_by" style="font-size: 25px;color: #0021A5; font-family: 'gentona', 'Georgia', serif;">
       <option value="ope">Open</option>
-      <option value="bui">Building</option>
       <option value="dis">Distance</option>
     </select>
   </div>
 
   <!-- display list of dining locations -->
   <div  id="locations-list">
-    <ul class="restaurants" >
+    <ul class="restaurants">
       <li *ngFor="let location of dinings$.features | filter: name" [class.selected]="location === selectedLocation" (click)="onSelect(location)" >
         
         <a href='https://www.google.com/maps/?q= {{location.properties.Name}}+Gainesville+Florida' target="_blank">
@@ -41,11 +39,11 @@
         </a>
         <p style="float: right;">1.0 km</p>
 
-        <h5 style="margin : 0; padding-top:0;" id="display-name"><span class="badge">{{location.properties.ID}}</span> {{location.properties.Name}}</h5>
-        <p style="margin : 0; padding-top:0;">Building: {{location.properties.buildingName}}</p>
+        <h5 style="margin : 0; padding-top:0;" id="display-name">{{location.properties.Name}}</h5>
+        <p style="margin : 0; padding-top:0;">{{location.properties.buildingName}}</p>
         <p *ngIf="location.properties.B_Monday; else normalTimes">Hours today: {{getDiningHallDay(location.properties)}}</p>
-        <ng-template #normalTimes>Hours today: {{getDay(location.properties)}}</ng-template>
-        <p style="margin: 0; padding-top: 0;"><a href="https://gatordining.com/menu/" target="_blank" style="color: #0021A5">View Menu</a></p>
+        <ng-template #normalTimes><p>Hours today: {{getDay(location.properties)}}</p></ng-template>
+        <!-- <p style="margin: 0; padding-top: 0;"><a href="https://gatordining.com/menu/" target="_blank" style="color: #0021A5">View Menu</a></p> -->
         
       </li>
     </ul>
