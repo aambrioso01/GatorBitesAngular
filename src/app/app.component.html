@@ -2,10 +2,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4" id="overview-main">
-      <app-overview [selectedLocationID]="message" ></app-overview> 
+      <app-overview [selectedLocationID]="message" [Lat]="lat" [Lng]="lng"></app-overview> 
     </div>
     <div class=col-md-8>   
-      <app-map (messageEvent)="receiveMessage($event)"  ></app-map>
+      <app-map (messageEvent)="receiveMessage($event)" (latEvent)="receiveLat($event)" (lngEvent)="receiveLng($event)"></app-map>
     </div>
   </div>
   </div>

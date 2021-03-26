@@ -22,6 +22,8 @@ export class OverviewComponent implements OnInit {
 
   @Input() location?: Location;
   @Input() selectedLocationID: String;
+  @Input() Lat: number;
+  @Input() Lng: number;
 
   name: '';
   message: string;
@@ -115,6 +117,15 @@ export class OverviewComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedLocationID']) {
       this.setLocationOnMarker()
+    }
+    if(changes['Lat'])
+    {
+      this.setLat(this.Lat);
+      //console.log("lat change detected on overview component");
+    }
+    if(changes['Lng'])
+    {
+      this.setLng(this.Lng);
     }
   }
 
@@ -258,10 +269,22 @@ export class OverviewComponent implements OnInit {
     hrs.push("Saturday: " + loc.Saturday);
     return hrs;
   }
+
+  setLat(lat: number)
+  {
+    this.curr_position[0] = lat; 
+    console.log("Stored lat on overview: " + this.curr_position[0]);
+  }
+  setLng(lng: number)
+  {
+    this.curr_position[1] = lng; 
+    console.log("Stored lng onn overview: " + this.curr_position[1]);
+  }
   
   getDistance(lat: number, lon: number) {
     var radLat1 = lat * Math.PI / 180.0;
     var radLat2 = this.curr_position[0] * Math.PI / 180.0;
+    //console.log(this.curr_position[0]);
     var a = radLat1 - radLat2;
     var b = lon * Math.PI / 180.0 - this.curr_position[1] * Math.PI / 180.0;
     var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));

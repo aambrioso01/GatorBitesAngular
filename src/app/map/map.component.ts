@@ -21,6 +21,7 @@ import { OverviewComponent } from '../overview/overview.component';
 const BING_KEY = 'AgmwdPOAELwcyd_a30Y6Xq9qD_1YS11OuStJ0YDv1VeDNrG3fECPG7PkIYJtAKEw';
 var vm;
 var message;
+var Lat, Lng;
 
 
 
@@ -36,6 +37,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   @Output() messageEvent = new EventEmitter<String>();
   @Output() idEvent = new EventEmitter<boolean>();
+  @Output() latEvent = new EventEmitter<number>();
+  @Output() lngEvent = new EventEmitter<number>();
   json;
   
   constructor(private http: HttpClient, private service: SelectionService) { }
@@ -55,6 +58,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   searchedBldg;
   searchedBldgName;
   message:string;
+  savedLatLng;
 
   
 
@@ -208,6 +212,18 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     //locator.initialZoomLevel(false);
     locator.addTo(this.map);
+
+    
+
+    this.map.on('locationfound', function (evt){
+      Lat = evt.latlng.lat;
+      Lng = evt.latlng.lng;
+      vm.latEvent.emit(Lat);
+      vm.lngEvent.emit(Lng);
+      //this.map.lngEvent.emit(Lng);
+      console.log("Current lat: " + Lat);
+      console.log("Current lng: " + Lng);
+    })
 
   }
 
