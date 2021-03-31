@@ -10,6 +10,7 @@ import { OverviewDetailComponent } from './overview-detail/overview-detail.compo
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { FilterPipe } from './filter.pipe';
+import { SortPipe } from './sort.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FilterPipe } from './filter.pipe';
     MapComponent,
     OverviewComponent,
     OverviewDetailComponent,
-    FilterPipe
+    FilterPipe,
+    SortPipe
   ],
   imports: [
     BrowserModule,

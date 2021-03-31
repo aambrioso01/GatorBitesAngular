@@ -19,7 +19,7 @@ var vm;
 var selectedLocationID;
 var message;
 var flag: boolean = false;
-
+var selectedLoc;
 
 
 @Component({
@@ -103,7 +103,7 @@ export class MapComponent implements OnInit {
           function markerOnClick(e) {
             //sets location ID when marker is clicked
             selectedLocationID = feature.properties.ID;
-            
+            selectedLoc = feature.properties;
             
             message = selectedLocationID;
             vm.messageEvent.emit(message);

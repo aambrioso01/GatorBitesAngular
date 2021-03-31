@@ -15,12 +15,13 @@ import * as building from '../.././assets/boundaries.json'
 export class OverviewComponent implements OnInit {
   @Input() location?: Location;
   @Input() selectedLocationID: string;
-
   // getRestaurants(): void {
   //   this.restaurantService.getRestaurants()
   //     .subscribe(restaurants => this.restaurants = restaurants);
   // }
-  name: '';
+  opened : boolean = false;
+  searchText = '';
+  sortByParam = '';
 
   //public list:boolean;
 
@@ -34,15 +35,28 @@ export class OverviewComponent implements OnInit {
   locations$: Location[] = [];
   dinings$: any = (dining as any).default;
   buildings$: any = (building as any).default;
+  openArr : any[] = [];
+
+  places : any;
 
   
 
   constructor(private api: ApiService) {}
   headers:any;
 
+  selectChangeHandler () {
+    //update the ui
+    this.opened = !this.opened;
+  }
+
   async ngOnInit() {
+    // console.log("hey girlie" + this.selectedLocationID);
 
     this.list = true;
+
+    var today = (new Date()).getDay();
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var hour = (new Date()).getHours();
     
     await this.api.getLocation().then(val => this.locations$ = val);
     for (let i = 0; i < this.dinings$.features.length; i++) {
@@ -63,11 +77,6 @@ export class OverviewComponent implements OnInit {
         this.addDinner(i, found);
 
         this.dinings$.features[i].properties['buildingName'] = building.properties.PropName;
-      // } else if (id == 48) {
-      //   console.log(found);
-      //   console.log(this.dinings$.features[i]);
-        // delete this.dinings$.features[i];
-        // this.dinings$.features.splice(i, 1);
       } else if (id == 8) {
         found = this.locations$.find(item => item.dinlocid === 57);
         this.addBreakfast(i, found);
@@ -81,15 +90,77 @@ export class OverviewComponent implements OnInit {
         this.dinings$.features[i].properties['buildingName'] = building.properties.PropName;
       } else if (typeof found !== "undefined") {
         this.addProperties(i, found, building);
-        // if (id == 76) {
-        //   console.log(i);
-        //   console.log(found);
-        // }
+      } 
+
+      let hours = this.dinings$.features[i].properties[days[today]];
+      let meals = ["B", "L", "D"];
+      let meal = "";
+      if (hour < 11) {
+        meal = meals[0];
+      } else if (hour < 16) {
+        meal = meals[1];        
       } else {
-        // let removed = this.dinings$.features.splice(i, 1);
+        meal = meals[2];
       }
+
+      meal = meal + "_" + days[today];
+      console.log(this.dinings$.features[i].properties.ID);
+      let dinHours = this.dinings$.features[i].properties[meal];
+if (this.dinings$.features[i].properties.ID == 52) {
+  console.log(dinHours);
+      console.log(hours);
+
+}
+
+      if (typeof hours !== "undefined") {
+        // var splitted = hours.split(/-/);
+        var splitted = hours.split(/:|-/);
+
+        // console.log(this.dinings$.features[i].properties.ID + " " + splitted);
+        if (splitted[0] !== "CLOSED") {
+          // let lower = new Date(splitted[0]);
+          // let upper = new Date(splitted[2]);
+          let lower = Number(splitted[0]);
+          let upper = Number(splitted[2]) + 12;
+
+          // console.log(lower);
+          // console.log(upper);
+// console.log(hour);
+
+          if (hour > lower && hour < upper) {
+            // console.log(this.dinings$.features[i]);
+            this.dinings$.features[i].properties['open'] = "true";
+          } else {
+            this.dinings$.features[i].properties['open'] = "false";
+          }
+        } else {
+          this.dinings$.features[i].properties['open'] = "false";
+        }
+      } else if (typeof dinHours !== "undefined") {
+        // console.log("dining");
+        var splitted = dinHours.split(/:|-/);
+
+        // console.log(this.dinings$.features[i].properties.ID + " " + splitted);
+        if (splitted[0] !== "CLOSED") {
+          let lower = Number(splitted[0]);
+          let upper = Number(splitted[2]) + 12;
+          if (hour > lower && hour < upper) {
+            // console.log(this.dinings$.features[i]);
+            this.dinings$.features[i].properties['open'] = "true";
+          }
+        } else {
+          this.dinings$.features[i].properties['open'] = "false";
+        }
+      } else {
+        this.dinings$.features[i].properties['open'] = "false";
+      }
+
     }
+
     console.log(this.dinings$);
+this.places = this.dinings$;
+console.log(this.places);
+
   }
  
   
@@ -102,6 +173,40 @@ export class OverviewComponent implements OnInit {
     console.log(this.list);
 
     //window.scroll(0,0);
+  }
+
+  getOpen(){
+    var today = (new Date()).getDay();
+    var hour = (new Date()).getHours();
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    // console.log(this.dinings$);
+    console.log(this.dinings$.features.length);
+
+    for (let i = 0; i < this.dinings$.features.length; i++){
+      // if (!this.dinings$.features[i].properties.B_Monday) {
+        console.log("hi");
+        let hours = this.dinings$.features[i].properties[days[today]];
+        // console.log(hours);
+        if (typeof hours !== "undefined") {
+          var splitted = hours.split(/:|-/);
+          let lower = Number(splitted[0]);
+          let upper = Number(splitted[2]);
+          if (hour > lower && hour < upper) {
+            this.openArr.push(this.dinings$.features[i]);
+          }
+        }
+
+        // console.log(splitted)
+  
+      // }
+
+
+    }
+
+    console.log(this.openArr);
+
+    // return open;
+
   }
 
 
