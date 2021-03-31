@@ -10,6 +10,7 @@ export class FilterPipe implements PipeTransform {
     if(!searchText) return items;
       searchText = searchText.toLowerCase();
     return items.filter( it => {
+      console.log(it.properties.buildingName);
     return it.properties.Name.toLowerCase().includes(searchText) || it.properties.buildingName.toLowerCase().includes(searchText);
     });
     }
