@@ -56,3 +56,71 @@ p {
   font-size: 20px;
   margin-right: 10px;
 }
+
+@media screen and (max-width: 768px){
+.content{
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.sidebar
+{
+  overflow-y: scroll;
+  height: 95vh;
+}
+.restaurants {
+  list-style: none;
+  padding-left: 10px;
+  border: 1px #0021A5 solid;
+  overflow-y: scroll;
+  height: 80vh;
+}
+
+
+.restaurants li {
+    color: #0021A5;
+    list-style-type: none;
+    border: 1px #0021A5 solid;
+    cursor: pointer;
+    position: relative;
+    height: 100px;
+ }
+
+.restaurants li:hover {
+  background-color: #6C9AC3;
+  color: #0021A5;
+}
+
+.restaurants li.selected {
+  background-color: #6C9AC3;
+  color: #0021A5;
+}
+
+.restaurants li.selected:hover {
+  background-color: #6C9AC3;
+  color: #0021A5;
+}
+
+.restaurants li.selected:active {
+  background-color: #6C9AC3;
+  color: #0021A5;
+ }
+
+#locations-list {
+  background-color: black;
+  
+}
+
+p {
+  padding: 0px 10px;
+  color: black;
+}
+
+#directions-link {
+  float: right;
+  font-size: 20px;
+  margin-right: 10px;
+}
+}

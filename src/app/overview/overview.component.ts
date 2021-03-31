@@ -1,18 +1,25 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
-import {MapComponent} from '../map/map.component';
 //import { RESTAURANTS } from '../mock-restaurants';
 import { Location } from '../location';
 import { RestaurantService } from '../restaurant.service';
 import { ApiService } from '.././api.service';
+import { SelectionService } from '.././selection.service';
 import * as dining from '../.././assets/dining.json'
 import * as building from '../.././assets/boundaries.json'
+
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css']
+  styleUrls: ['./overview.component.css'],
+  providers: [
+    SelectionService
+  ]
 })
 export class OverviewComponent implements OnInit {
+
+  private _selectedLocationID: number;
+
   @Input() location?: Location;
   @Input() selectedLocationID: string;
   // getRestaurants(): void {
@@ -22,6 +29,11 @@ export class OverviewComponent implements OnInit {
   opened : boolean = false;
   searchText = '';
   sortByParam = '';
+  @Input() Lat: number;
+  @Input() Lng: number;
+
+  name: '';
+  message: string;
 
   //public list:boolean;
 
@@ -29,6 +41,17 @@ export class OverviewComponent implements OnInit {
 
   receiveList($event) {
     this.list = $event;
+  }
+
+  setLocationOnMarker() {
+    //console.log("this.selectedLocationID: " + this._selectedLocationID);
+    let id = this.selectedLocationID;
+    let found = this.dinings$.features.find(item => item.properties.ID === id);
+    this.selectedLocation = found;
+    this.list = true;
+    //console.log("ID: " + id);
+    //console.log("Found: " + found);
+    //console.log(this.dinings$.features);
   }
 
 
@@ -39,10 +62,12 @@ export class OverviewComponent implements OnInit {
 
   places : any;
 
-  
 
-  constructor(private api: ApiService) {}
-  headers:any;
+
+  constructor(private api: ApiService) { }
+  headers: any;
+  
+  curr_position: number[] = [29.64636443982178, -82.34316087863382];
 
   selectChangeHandler () {
     //update the ui
@@ -157,13 +182,28 @@ if (this.dinings$.features[i].properties.ID == 52) {
 
     }
 
-    console.log(this.dinings$);
+    // console.log(this.dinings$);
 this.places = this.dinings$;
-console.log(this.places);
+// console.log(this.places);
 
   }
- 
-  
+
+  //if selectedLocationID updates, call function to set location from marker ID
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedLocationID']) {
+      this.setLocationOnMarker()
+    }
+    if(changes['Lat'])
+    {
+      this.setLat(this.Lat);
+      //console.log("lat change detected on overview component");
+    }
+    if(changes['Lng'])
+    {
+      this.setLng(this.Lng);
+    }
+  }
+
   selectedLocation?: Location;
   onSelect(location: Location): void {
     this.selectedLocation = location;
@@ -253,26 +293,26 @@ console.log(this.places);
   }
 
 
-  getDay(loc : Location){
+  getDay(loc: Location) {
     var today = (new Date()).getDay();
     if (today == 0) {
       return loc.Sunday;
     } else if (today == 1) {
-      return loc.Monday;      
+      return loc.Monday;
     } else if (today == 2) {
-      return loc.Tuesday;      
+      return loc.Tuesday;
     } else if (today == 3) {
-      return loc.Wednesday;            
+      return loc.Wednesday;
     } else if (today == 4) {
-      return loc.Thursday;            
+      return loc.Thursday;
     } else if (today == 5) {
-      return loc.Friday;            
+      return loc.Friday;
     } else if (today == 6) {
-      return loc.Saturday;            
+      return loc.Saturday;
     }
   }
 
-  getDiningHallDay(loc : Location) {
+  getDiningHallDay(loc: Location) {
     var today = (new Date()).getDay();
     var hour = (new Date()).getHours();
 
@@ -280,55 +320,55 @@ console.log(this.places);
       if (today == 0) {
         return loc.B_Sunday;
       } else if (today == 1) {
-        return loc.B_Monday;      
+        return loc.B_Monday;
       } else if (today == 2) {
-        return loc.B_Tuesday;      
+        return loc.B_Tuesday;
       } else if (today == 3) {
-        return loc.B_Wednesday;            
+        return loc.B_Wednesday;
       } else if (today == 4) {
-        return loc.B_Thursday;            
+        return loc.B_Thursday;
       } else if (today == 5) {
-        return loc.B_Friday;            
+        return loc.B_Friday;
       } else if (today == 6) {
-        return loc.B_Saturday;            
+        return loc.B_Saturday;
       }
     } else if (hour < 16) {
       if (today == 0) {
         return loc.L_Sunday;
       } else if (today == 1) {
-        return loc.L_Monday;      
+        return loc.L_Monday;
       } else if (today == 2) {
-        return loc.L_Tuesday;      
+        return loc.L_Tuesday;
       } else if (today == 3) {
-        return loc.L_Wednesday;            
+        return loc.L_Wednesday;
       } else if (today == 4) {
-        return loc.L_Thursday;            
+        return loc.L_Thursday;
       } else if (today == 5) {
-        return loc.L_Friday;            
+        return loc.L_Friday;
       } else if (today == 6) {
-        return loc.L_Saturday;            
+        return loc.L_Saturday;
       }
     } else {
       if (today == 0) {
         return loc.D_Sunday;
       } else if (today == 1) {
-        return loc.D_Monday;      
+        return loc.D_Monday;
       } else if (today == 2) {
-        return loc.D_Tuesday;      
+        return loc.D_Tuesday;
       } else if (today == 3) {
-        return loc.D_Wednesday;            
+        return loc.D_Wednesday;
       } else if (today == 4) {
-        return loc.D_Thursday;            
+        return loc.D_Thursday;
       } else if (today == 5) {
-        return loc.D_Friday;            
+        return loc.D_Friday;
       } else if (today == 6) {
-        return loc.D_Saturday;            
+        return loc.D_Saturday;
       }
     }
   }
 
-  getHours(loc : Location) {
-    let hrs : any[];
+  getHours(loc: Location) {
+    let hrs: any[];
     hrs.push("Sunday: " + loc.Sunday);
     hrs.push("Monday: " + loc.Monday);
     hrs.push("Tuesday: " + loc.Tuesday);
@@ -339,23 +379,34 @@ console.log(this.places);
     return hrs;
   }
 
+  setLat(lat: number)
+  {
+    this.curr_position[0] = lat; 
+    console.log("Stored lat on overview: " + this.curr_position[0]);
+  }
+  setLng(lng: number)
+  {
+    this.curr_position[1] = lng; 
+    console.log("Stored lng onn overview: " + this.curr_position[1]);
+  }
+  
+  getDistance(location: any, lat: number, lon: number) {
+    var radLat1 = lat * Math.PI / 180.0;
+    var radLat2 = this.curr_position[0] * Math.PI / 180.0;
+    //console.log(this.curr_position[0]);
+    var a = radLat1 - radLat2;
+    var b = lon * Math.PI / 180.0 - this.curr_position[1] * Math.PI / 180.0;
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+    s = s * 6378.137;
+    s = Math.round(s * 10000) / 10000;
+    if (s >= 1) {
+      location['dist'] = s.toPrecision(2);
+      return s.toPrecision(2) + "km";
+    }
+    else {
+      location['dist'] = Number((s * 1000).toPrecision(3)).toFixed(0);
+      return Number((s * 1000).toPrecision(3)).toFixed(0) + "m";
+    }
+  }
 
-  
-  
-  // ngOnChanges(changes: SimpleChanges)
-  // {
-  //   for(let i =0; i < this.locations$.length; i++)
-  //   {
-  //     let id = Number(this.dinings$.features[i].properties.ID);
-  //     let found = this.locations$.find(item => item.dinlocid === id);
-  //     // if(this.selectedLocationID == id)
-  //     // {
-  //     //   this.selectedLocation = found;
-  //     // }
-  //   }
-  //   console.log(changes);
-  // }
-  
-
-  
 }

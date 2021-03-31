@@ -5,16 +5,30 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SortPipe implements PipeTransform {
 
-  transform(items: any[], args: any[]): any[] {
-    let filterBy = args[0];
-    console.log(args);
-    if(!items) return [];
+  transform(items: any[], args: string): any[] {
+    if (!args) return items;
+    // if(!items) return [];
+
+    let filterBy = args;
     console.log(filterBy);
-    return items.filter( it => {
-      // console.log(it.properties.ID + " " + it.properties.open);
-        return it.properties.open.includes("true");
-      // .open.includes(true);
-    });
+    if (filterBy.includes("open")) {
+      return items.filter( it => {
+          return it.properties.open.includes("true");
+      });
+    } else if (args.includes("dis")) {
+      items.sort((a: any, b: any) => {
+        if (typeof a.properties.dist !== "undefined" && typeof b.properties.dist !== "undefined") {
+          if (a.properties.dist < b.properties.dist) {
+            return -1;
+          } else if (a.properties.dist > b.properties.dist) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      });
+      return items;
+    }
 
   }
 }

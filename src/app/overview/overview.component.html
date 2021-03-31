@@ -1,22 +1,21 @@
 <!-- Title -->
 <div style="padding-left: 20px; border: 2px #0021A5 solid; background-color: #0021A5">
-    <h2 style="color: white; font-family: 'gentona', 'Georgia', serif;"><b>Gator Dining Map: {{selectedLocationID}}</b></h2>
+    <h2 style="color: white; font-family: 'gentona', 'Georgia', serif;"><b>Gator Dining Map</b></h2>
     
 </div>
 
 <!-- display details of specified location -->
-<div class="sidebar">
-  <!--list: {{list}}-->
-  <app-overview-detail [location]="selectedLocation" [list]="list" (listEvent)="receiveList($event)"></app-overview-detail><!-- [list]="list" -->
+<div class="content">
+  <div class="sidebar">
+    <app-overview-detail [location]="selectedLocation" [list]="list" (listEvent)="receiveList($event)" ></app-overview-detail><!-- [list]="list" -->
 
-<div>
   <!-- search bar -->
   <div class="container" style=" padding-top: 20px;">
     <form action="">
       <div class="form-group">
         <input type="text" [(ngModel)] = searchText class="form-control" id="location_search" placeholder="Search by dining location or building" name="location" style="height: 50px;font-size: 30px;">
       </div>
-    </form>
+  </form>
   </div>
 
   <!-- dropdown filter options -->
@@ -25,6 +24,7 @@
       <b>Sort by:</b>
     </span>
     <select (change)="selectChangeHandler()" [(ngModel)] = sortByParam id="sort_by" style="font-size: 25px;color: #0021A5; font-family: 'gentona', 'Georgia', serif;">
+      <option value=""></option>
       <option value="open">Open</option>
       <option value="dis">Distance</option>
     </select>
@@ -51,9 +51,9 @@
             <a href='https://www.google.com/maps/?q= {{location.properties.Name}}+Gainesville+Florida' target="_blank">
               <button id="btn_dir" style="float: right;background-color: white;border:none;background-image: url(assets/img_dir.png); height: 40px; width: 40px;"></button>
               </a>
-              <p style="float: right;">1.0 km</p>
+              <p *ngIf="curr_position[0] != NaN" style="float: right;">{{getDistance(location.properties, location.geometry.coordinates[1],location.geometry.coordinates[0])}}</p>
       
-              <h5 style="margin : 0; padding-top:0;" id="display-name">{{location.properties.ID}} {{location.properties.Name}}</h5>
+              <h5 style="margin : 0; padding-top:0;" id="display-name">{{location.properties.Name}}</h5>
               <p style="margin : 0; padding-top:0;">{{location.properties.buildingName}}</p>
               <p *ngIf="location.properties.B_Monday; else normalTimes">Hours today: {{getDiningHallDay(location.properties)}}</p>
               <ng-template #normalTimes><p>Hours today: {{getDay(location.properties)}}</p></ng-template>
@@ -66,5 +66,5 @@
     
   </div>
 </div>
-</div>
 
+</div>

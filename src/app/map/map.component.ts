@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { Map, divIcon, marker, geoJSON, latLng, tileLayer, Browser, Layer, GeoJSON, Icon, LayerGroup, Control, LatLngExpression, LatLng } from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet-bing-layer';
@@ -10,37 +10,42 @@ import * as geojson from 'geojson';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { DepFlags } from '@angular/compiler/src/core';
+import { SelectionService } from '../selection.service';
+import { ApiService } from '../api.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { OverviewComponent } from '../overview/overview.component';
 
 //import { debug } from 'node:console';
 
 
 const BING_KEY = 'AgmwdPOAELwcyd_a30Y6Xq9qD_1YS11OuStJ0YDv1VeDNrG3fECPG7PkIYJtAKEw';
 var vm;
-var selectedLocationID;
 var message;
-var flag: boolean = false;
-var selectedLoc;
+var Lat, Lng;
+
 
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  providers: [
+    ApiService, SelectionService 
+  ]
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
   @Output() messageEvent = new EventEmitter<String>();
+  @Output() idEvent = new EventEmitter<boolean>();
+  @Output() latEvent = new EventEmitter<number>();
+  @Output() lngEvent = new EventEmitter<number>();
   json;
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private service: SelectionService) { }
 
-  sendData(data: any[])
-  {
-    console.log('i am from map componennt');
-    console.log(data);
-  }
+  
 
-  private map: Map;
+  map: Map;
   private sub: any;
   public boundariesLayer: GeoJSON;
   public parkingLayer: GeoJSON;
@@ -52,39 +57,25 @@ export class MapComponent implements OnInit {
   showClassSched = false;
   searchedBldg;
   searchedBldgName;
+  message:string;
+  savedLatLng;
 
+  
 
-  //even with nothing in here, this code still has to be here for overview to update with id?
-  sendMessage() 
+  reloadGeoJSONLayer(map: Map)
   {
     
-  }
-
-
-  ngOnInit(): void {
-    vm = this;
-
-    this.http.get('assets/boundaries.json')
-      .subscribe((data) => this.loadBoundaries(data))
-
-  }
-
-  onMapReady(map: Map) {
-
-    
+    this.map = map;
 
     this.http.get("assets/dining.json").subscribe((json: any) => {
       console.log(json);
       this.json = json;
       var myLayer = L.geoJSON(this.json);
+      
 
       const anIcon = divIcon({
-        //html: '<span class="fa-stack"><i class="fas fa-circle fa-stack-2x" style="color: #' + '795548' + ';"></i><i class="fal fa-stack-1x white-text ' + 'fas fa-utensils' + '"></i></span>',
-        //iconSize: [20, 20],
         className: 'mapIcon'
       });
-
-      
 
       myLayer = geoJSON(this.json, {
         pointToLayer: function (feature, latlng) {
@@ -92,47 +83,68 @@ export class MapComponent implements OnInit {
           if (feature.properties.CUSTOM_POPUP) {
             mark.bindPopup(feature.properties.CUSTOM_POPUP);
             mark.on('click', markerOnClick);
-            //mark.on('click', sendMessage);
-            //selectedLocationID = feature.properties.ID;
-            //message = selectedLocationID;
-            //console.log(selectedLocationID);
           }
-
-          
 
           function markerOnClick(e) {
-            //sets location ID when marker is clicked
-            selectedLocationID = feature.properties.ID;
-            selectedLoc = feature.properties;
-            
-            message = selectedLocationID;
-            vm.messageEvent.emit(message);
-            
-            //flag = true;
-            //this.messageEvent.emit(message);
-            //emits string ID to parent component (app)
-            //this.childToParent.emit(selectedLocationID);
-            console.log("Selected ID on map:" + selectedLocationID);
+            message = feature.properties.ID;     
+            vm.messageEvent.emit(message);           
+            //console.log("Selected ID on map:" + message);
           }
-
-          
-
           return mark;
         }
       })
-
       myLayer.addTo(this.map);
-
-      
-
     });
+  }
 
 
+  ngOnInit(): void {
+    vm = this;
+    
+    this.http.get('assets/boundaries.json')
+      .subscribe((data) => this.loadBoundaries(data))
+
+  }
+
+  ngAfterViewInit(): void {
+    this.map.invalidateSize();
+  }
+
+  onMapReady(map: Map) {
 
     this.map = map;
 
-    //var gatorDiningMarker = marker([29.641569, -82.346252]).addTo(map);
+    this.http.get("assets/dining.json").subscribe((json: any) => {
+      console.log(json);
+      this.json = json;
+      var myLayer = L.geoJSON(this.json);
+      
+      const anIcon = divIcon({
+        className: 'mapIcon'
+      }); 
 
+      myLayer = geoJSON(this.json, {
+        pointToLayer: function (feature, latlng) {
+          var mark = marker(latlng, { icon: feature.properties.CUSTOM_ICON ? new Icon({ iconUrl: 'assets/' + feature.properties.CUSTOM_ICON, iconSize: [30, 30] }) : anIcon });
+          if (feature.properties.CUSTOM_POPUP) {
+            mark.bindPopup(feature.properties.CUSTOM_POPUP);
+            mark.on('click', markerOnClick);
+            
+          }
+
+          function markerOnClick(e) {
+            //sets location ID when marker is clicked
+            message = feature.properties.ID;
+            
+            vm.messageEvent.emit(message);
+            //console.log("Selected ID on map:" + message);
+          }
+          return mark;
+        }
+      })
+      myLayer.addTo(this.map);
+
+    });
 
 
     var grey_basemap = (L as any).tileLayer.bing({
@@ -184,6 +196,7 @@ export class MapComponent implements OnInit {
     };
 
     var layerControl = new Control.Layers(baseMaps, overlayMaps);
+    
     layerControl.addTo(this.map);
     basemap.addTo(this.map);
     street_labels.addTo(this.map);
@@ -200,37 +213,26 @@ export class MapComponent implements OnInit {
     //locator.initialZoomLevel(false);
     locator.addTo(this.map);
 
-    // var myLayer = L.geoJSON().addTo(map);
-    // myLayer.addData(diningGeoJSON);
+    
 
-
-
+    this.map.on('locationfound', function (evt){
+      Lat = evt.latlng.lat;
+      Lng = evt.latlng.lng;
+      vm.latEvent.emit(Lat);
+      vm.lngEvent.emit(Lng);
+      //this.map.lngEvent.emit(Lng);
+      console.log("Current lat: " + Lat);
+      console.log("Current lng: " + Lng);
+    })
 
   }
 
   options = {
-    layers: [
-      //background basemap
-      // tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=BUTtr6UHPeSdE3hiLamg', {
-      //             attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-      // }),
-
-      //campus basemap
-
-
-
-    ],
+    layers: [],
     center: [29.644533, -82.351683],
     minZoom: 15,
     zoom: 15,
-
   };
-
-  // private onStateChangeEvent = (event: any) => {
-    
-  //   this.messageEvent.emit(selectedLocationID); 
-  //   console.log("reached here: " + selectedLocationID);
-  // }
 
   style(feature) {
     return {
@@ -279,18 +281,7 @@ export class MapComponent implements OnInit {
       }
     })
     this.boundariesLayer.addTo(this.map);
-    // if (this.id != null) {
-    //   var obj = { "item": { "BLDG": this.id } };
-    //   this.handleSearchResults(obj);
-    // }
-
-    // if (this.sched != null) {
-    //   this.showSchedule();
-    // }
   }
-
-
-
 
 }
 

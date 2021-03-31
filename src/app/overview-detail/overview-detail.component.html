@@ -1,4 +1,7 @@
+<div *ngIf="list" class="ng-hide">
 <div *ngIf="location" style=" padding: 20px; ">
+  <button (click)="toggle()">Close</button>
+  <br>
   <img [src]="'https://stars.facilities.ufl.edu/public/api/photos/photo?bldg='+location.properties.BLDG" width="100%" alt="Building Photo"/>
   <!-- <img class="img-responsive" src="https://pbs.twimg.com/profile_images/913804511499526144/_F-9PuFZ.jpg" alt="restaurant-logo" style="margin: 0 auto; width: 300px; height: 400px; border:1px blue solid;"> -->
   <h2>{{location.properties.Name}}</h2>
@@ -24,4 +27,5 @@
     <div *ngFor="let day of getWeek(location.properties)">{{day}}</div>
   </ng-template>  
   <p style="font-size: 20px; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p>
+</div>
 </div>

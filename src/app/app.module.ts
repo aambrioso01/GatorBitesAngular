@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { FilterPipe } from './filter.pipe';
 import { SortPipe } from './sort.pipe';
+import { SelectionService } from './selection.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { SortPipe } from './sort.pipe';
     HttpClientModule,
     LeafletModule
   ],
-  providers: [ApiService],
+  providers: [ApiService , SelectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

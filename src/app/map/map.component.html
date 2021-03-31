@@ -16,8 +16,6 @@
 
 
 <!-- Leaftet implementation -->
-<div class="container-fluid" id="map" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event) " (click)="sendMessage()">
-  <!--<button (click)="sendMessage()" class ="button">Send Message</button>-->
-</div>
+<div class="container-fluid" id="map" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event) " (click)="reloadGeoJSONLayer(map)"></div>
 
 
