@@ -9,6 +9,7 @@
   <div class="sidebar">
     <app-overview-detail [location]="selectedLocation" [list]="list" (listEvent)="receiveList($event)" ></app-overview-detail><!-- [list]="list" -->
 
+  <div *ngIf="!selectedLocation" class="ng-hide">
   <!-- search bar -->
   <div class="container" style=" padding-top: 20px;">
     <form action="">
@@ -63,7 +64,7 @@
       </li>
     </ul>
 
-    
+   </div> 
   </div>
 </div>
 

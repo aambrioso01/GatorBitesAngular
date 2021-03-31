@@ -41,6 +41,7 @@ export class OverviewComponent implements OnInit {
 
   receiveList($event) {
     this.list = $event;
+    this.selectedLocation = null;
   }
 
   setLocationOnMarker() {
