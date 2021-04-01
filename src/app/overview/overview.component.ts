@@ -400,14 +400,8 @@ export class OverviewComponent implements OnInit {
     var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
     s = s * 6378.137;
     s = Math.round(s * 10000) / 10000;
-    if (s >= 1) {
-      location['dist'] = s.toPrecision(2);
-      return s.toPrecision(2) + "km";
-    }
-    else {
-      location['dist'] = Number((s * 1000).toPrecision(3)).toFixed(0);
-      return Number((s * 1000).toPrecision(3)).toFixed(0) + "m";
-    }
+    location['dist'] = s;
+    return Number(s * 0.62137).toFixed(1) + "mi";
   }
 
 }

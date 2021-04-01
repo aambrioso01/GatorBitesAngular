@@ -49,7 +49,7 @@
 <!-- </div> -->
 
         <!-- <ng-template #showAll> -->
-            <a href='https://www.google.com/maps/?q= {{location.properties.Name}}+Gainesville+Florida' target="_blank">
+            <a href='https://www.google.com/maps/?q={{location.geometry.coordinates[1]}},{{location.geometry.coordinates[0]}}' target="_blank">
               <button id="btn_dir" style="float: right;background-color: white;border:none;background-image: url(assets/img_dir.png); height: 40px; width: 40px;"></button>
               </a>
               <p *ngIf="curr_position[0] != NaN" style="float: right;">{{getDistance(location.properties, location.geometry.coordinates[1],location.geometry.coordinates[0])}}</p>
