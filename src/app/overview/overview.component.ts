@@ -61,9 +61,6 @@ export class OverviewComponent implements OnInit {
   buildings$: any = (building as any).default;
   openArr : any[] = [];
 
-  places : any;
-
-
 
   constructor(private api: ApiService) { }
   headers: any;
@@ -82,7 +79,10 @@ export class OverviewComponent implements OnInit {
 
     var today = (new Date()).getDay();
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var timeNow = new Date();
     var hour = (new Date()).getHours();
+    timeNow.setHours(hour);
+    timeNow.setMinutes(timeNow.getMinutes());
     
     await this.api.getLocation().then(val => this.locations$ = val);
     for (let i = 0; i < this.dinings$.features.length; i++) {
@@ -130,30 +130,25 @@ export class OverviewComponent implements OnInit {
       }
 
       meal = meal + "_" + days[today];
-      console.log(this.dinings$.features[i].properties.ID);
       let dinHours = this.dinings$.features[i].properties[meal];
-if (this.dinings$.features[i].properties.ID == 52) {
-  console.log(dinHours);
-      console.log(hours);
-
-}
 
       if (typeof hours !== "undefined") {
         // var splitted = hours.split(/-/);
-        var splitted = hours.split(/:|-/);
-
+        var splitted = hours.split(/:|-|AM|PM/);
+        // console.log(splitted)
         // console.log(this.dinings$.features[i].properties.ID + " " + splitted);
         if (splitted[0] !== "CLOSED") {
-          // let lower = new Date(splitted[0]);
-          // let upper = new Date(splitted[2]);
-          let lower = Number(splitted[0]);
-          let upper = Number(splitted[2]) + 12;
-
-          // console.log(lower);
-          // console.log(upper);
-// console.log(hour);
-
-          if (hour > lower && hour < upper) {
+          let currentDate = new Date();   
+          let startDate = new Date(currentDate.getTime());
+          startDate.setHours(splitted[0]);
+          startDate.setMinutes(splitted[1]);
+  
+          let endDate = new Date(currentDate.getTime());
+          let hours = Number(splitted[3]) + 12;
+          endDate.setHours(hours);
+          endDate.setMinutes(splitted[4]);
+  
+          if (timeNow > startDate && timeNow < endDate) {
             // console.log(this.dinings$.features[i]);
             this.dinings$.features[i].properties['open'] = "true";
           } else {
@@ -164,13 +159,23 @@ if (this.dinings$.features[i].properties.ID == 52) {
         }
       } else if (typeof dinHours !== "undefined") {
         // console.log("dining");
-        var splitted = dinHours.split(/:|-/);
+        // var splitted = dinHours.split(/:|-/);        
+        var splitted = dinHours.split(/:|-|AM|PM/);
+
 
         // console.log(this.dinings$.features[i].properties.ID + " " + splitted);
         if (splitted[0] !== "CLOSED") {
-          let lower = Number(splitted[0]);
-          let upper = Number(splitted[2]) + 12;
-          if (hour > lower && hour < upper) {
+          let currentDate = new Date();   
+          let startDate = new Date(currentDate.getTime());
+          startDate.setHours(splitted[0]);
+          startDate.setMinutes(splitted[1]);
+  
+          let endDate = new Date(currentDate.getTime());
+          let hours = Number(splitted[3]) + 12;
+          endDate.setHours(hours);
+          endDate.setMinutes(splitted[4]);
+  
+          if (timeNow > startDate && timeNow < endDate) {
             // console.log(this.dinings$.features[i]);
             this.dinings$.features[i].properties['open'] = "true";
           }
@@ -182,11 +187,6 @@ if (this.dinings$.features[i].properties.ID == 52) {
       }
 
     }
-
-    // console.log(this.dinings$);
-this.places = this.dinings$;
-// console.log(this.places);
-
   }
 
   //if selectedLocationID updates, call function to set location from marker ID

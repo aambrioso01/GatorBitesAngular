@@ -34,7 +34,7 @@
   <!-- display list of dining locations -->
   <div  id="locations-list">
     <ul class="restaurants" >
-      <li *ngFor="let location of places.features | filter: searchText | sort: sortByParam" [class.selected]="location === selectedLocation" (click)="onSelect(location)" >
+      <li *ngFor="let location of dinings$.features | filter: searchText | sort: sortByParam" [class.selected]="location === selectedLocation" (click)="onSelect(location)" >
         <!-- <div *ngIf="opened && location.properties.open">
         <a href='https://www.google.com/maps/?q= {{location.properties.Name}}+Gainesville+Florida' target="_blank">
         <button id="btn_dir" style="float: right;background-color: white;border:none;background-image: url(assets/img_dir.png); height: 40px; width: 40px;"></button>
