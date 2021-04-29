@@ -81,7 +81,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         pointToLayer: function (feature, latlng) {
           var mark = marker(latlng, { icon: feature.properties.CUSTOM_ICON ? new Icon({ iconUrl: 'assets/' + feature.properties.CUSTOM_ICON, iconSize: [30, 30] }) : anIcon });
           if (feature.properties.CUSTOM_POPUP) {
-            mark.bindPopup(feature.properties.CUSTOM_POPUP);
+            //mark.bindPopup(feature.properties.CUSTOM_POPUP);
             mark.on('click', markerOnClick);
           }
 
@@ -127,7 +127,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         pointToLayer: function (feature, latlng) {
           var mark = marker(latlng, { icon: feature.properties.CUSTOM_ICON ? new Icon({ iconUrl: 'assets/' + feature.properties.CUSTOM_ICON, iconSize: [30, 30] }) : anIcon });
           if (feature.properties.CUSTOM_POPUP) {
-            mark.bindPopup(feature.properties.CUSTOM_POPUP);
+            //mark.bindPopup(feature.properties.CUSTOM_POPUP);
             mark.on('click', markerOnClick);
             
           }

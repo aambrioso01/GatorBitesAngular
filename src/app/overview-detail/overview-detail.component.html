@@ -7,6 +7,7 @@
   <h2>{{location.properties.Name}}</h2>
   <!-- <div><span>id: </span>{{location.properties.ID}}</div> -->
   <h4>{{location.properties.buildingName}}</h4>
+  <p style="font-size: 20px; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p>
   <br>
   <div *ngIf="location.properties.B_Monday; else normalTimes">
     <div><b>Hours today</b></div>
@@ -26,6 +27,6 @@
     <div><b>{{getDay(location.properties)}}</b></div>
     <div *ngFor="let day of getWeek(location.properties)">{{day}}</div>
   </ng-template>  
-  <p style="font-size: 20px; color: blue"><a href="https://gatordining.com/menu/" target="_blank">View Menu</a></p>
+  
 </div>
 </div>

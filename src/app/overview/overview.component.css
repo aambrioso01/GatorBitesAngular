@@ -1,3 +1,48 @@
+input[type=text], 
+input[type=password] { 
+    width: 100%; 
+    padding: 12px 40px; 
+    margin: 8px 0; 
+    display: inline-block; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
+} 
+
+
+.min-container .card-panel form .fa {
+  top: 13px;
+  right: 1rem;
+}
+
+.form-group a i {
+  font-family: FontAwesome;
+  margin: 0 auto;
+  font-size: 5rem;
+  font-style: normal;
+}
+
+.fontpassword {
+  position: relative;
+}
+
+.fontpassword i{
+  position: absolute;
+  left: 15px;
+  top: 40px;
+  color: gray;
+}
+
+.fontuser {
+  position: relative;
+}
+
+.fontuser i{
+  position: absolute;
+  left: 15px;
+  top: 40px;
+  color: gray;
+}
+
 .sidebar
 {
   overflow-y: scroll;
@@ -58,7 +103,7 @@ p {
   margin-right: 10px;
 }
 
-@media screen and (max-width: 768px){
+/* @media screen and (max-width: 768px){
 .content{
   padding: 0 18px;
   display: none;
@@ -124,4 +169,4 @@ p {
   font-size: 20px;
   margin-right: 10px;
 }
-}
+} */

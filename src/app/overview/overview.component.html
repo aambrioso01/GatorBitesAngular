@@ -1,6 +1,6 @@
 <!-- Title -->
 <div style="padding-left: 20px; border: 2px #0021A5 solid; background-color: #0021A5">
-    <h2 style="color: white; font-family: 'gentona', 'Georgia', serif;"><b>Gator Dining Map</b></h2>
+    <h2 style="color: white; font-family: 'gentona', 'Georgia', serif;"><b>Gator Dining Map</b><img class="float-right" width="50" alt="UF Logo" src="assets/uf.png" style="padding-right:10px; padding-top:10px" /></h2>
     
 </div>
 
@@ -12,11 +12,20 @@
   <div *ngIf="!selectedLocation" class="ng-hide">
   <!-- search bar -->
   <div class="container" style=" padding-top: 20px;">
-    <form action="">
+    <form >
+      
+      <div class="form-group position-relative">
+        <label for="email" class="sr-only">Email</label>
+        <input type="text" [(ngModel)] = searchText class="form-control" id="location_search" placeholder="Search by dining location or building" name="location" style="height: 50px;font-size: 30px;">
+        <i class="fas fa-search fa-2x position-absolute" style="color:gray;" data-fa-transform="left-25 down-9"></i>
+      </div>
+      
+    </form>
+    <!-- <form action="">
       <div class="form-group">
         <input type="text" [(ngModel)] = searchText class="form-control" id="location_search" placeholder="Search by dining location or building" name="location" style="height: 50px;font-size: 30px;">
       </div>
-  </form>
+  </form> -->
   </div>
 
   <!-- dropdown filter options -->
@@ -33,7 +42,7 @@
 
   <!-- display list of dining locations -->
   <div  id="locations-list">
-    <ul class="restaurants" >
+    <ul class="restaurants"  >
       <li *ngFor="let location of dinings$.features | filter: searchText | sort: sortByParam" [class.selected]="location === selectedLocation" (click)="onSelect(location)" >
         <!-- <div *ngIf="opened && location.properties.open">
         <a href='https://www.google.com/maps/?q= {{location.properties.Name}}+Gainesville+Florida' target="_blank">
@@ -49,15 +58,16 @@
 <!-- </div> -->
 
         <!-- <ng-template #showAll> -->
-            <a href='https://www.google.com/maps/?q={{location.geometry.coordinates[1]}},{{location.geometry.coordinates[0]}}' target="_blank">
-              <button id="btn_dir" style="float: right;background-color: white;border:none;background-image: url(assets/img_dir.png); height: 40px; width: 40px;"></button>
-              </a>
-              <p *ngIf="curr_position[0] != NaN" style="float: right;">{{getDistance(location.properties, location.geometry.coordinates[1],location.geometry.coordinates[0])}}</p>
-      
-              <h5 style="margin : 0; padding-top:0;" id="display-name">{{location.properties.Name}}</h5>
-              <p style="margin : 0; padding-top:0;">{{location.properties.buildingName}}</p>
-              <p *ngIf="location.properties.B_Monday; else normalTimes">Hours today: {{getDiningHallDay(location.properties)}}</p>
-              <ng-template #normalTimes><p>Hours today: {{getDay(location.properties)}}</p></ng-template>
+          <h5 class="option1" style="margin : 0; padding-top:0; width: 100%" id="display-name">{{location.properties.Name}}<a href='https://www.google.com/maps/?q={{location.geometry.coordinates[1]}},{{location.geometry.coordinates[0]}}' style="float: right;" target="_blank">  
+            <button id="btn_dir" name="Directions" style="float: right;background-color: white;border:none;background-image: url(assets/img_dir.png); height: 40px; width: 40px;"></button><h6 class="option1" style="float: right; ">Directions</h6>         
+            </a></h5>
+          
+          
+            
+            <p style="margin : 0; padding-top:0; ">{{location.properties.buildingName}}</p>
+            <p *ngIf="curr_position[0] != NaN" style="margin : 0; padding-top:0; float: right;">{{getDistance(location.properties, location.geometry.coordinates[1],location.geometry.coordinates[0])}}</p>
+          <p *ngIf="location.properties.B_Monday; else normalTimes">Hours today: {{getDiningHallDay(location.properties)}}</p>
+          <ng-template #normalTimes><p>Hours today: {{getDay(location.properties)}}</p></ng-template>
 
         <!-- </ng-template> -->
         <!-- <p style="margin: 0; padding-top: 0;"><a href="https://gatordining.com/menu/" target="_blank" style="color: #0021A5">View Menu</a></p> -->
