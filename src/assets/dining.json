@@ -153,25 +153,7 @@
                 "CUSTOM_POPUP": "<b>Freshens<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -82.34132405460136,
-                    29.648778346169184,
-                    0
-                ]
-            },
-            "properties": {
-                "BLDG": "0556",
-                "ROOM": "0101",
-                "Name": "Little Hall Express",
-                "ID": "79",
-                "CUSTOM_ICON": "utensils.png",
-                "CUSTOM_POPUP": "<b>Little Hall Express<\/b><br><p>Hours Coming Soon!<\/p>"
-            }
-        },
+        
         {
             "type": "Feature",
             "geometry": {
@@ -685,44 +667,7 @@
                 "CUSTOM_POPUP": "<b>Shake Smart<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -82.34772792628222,
-                    29.646211690707123,
-                    0
-                ]
-            },
-            "properties": {
-                "BLDG": "0686",
-                "ROOM": "G106 ",
-                "Name": "Wing Zone Orange & Brew",
-                "ID": "62",
-                "CUSTOM_ICON": "utensils.png",
-                "CUSTOM_POPUP": "<b>Wing Zone Orange & Brew<\/b><br><p>Hours Coming Soon!<\/p>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -82.3477554011734,
-                    29.646417399696634,
-                    0
-                ]
-            },
-            "properties": {
-                "BLDG": "0686",
-                "ROOM": "4015 ",
-                "Name": "Arredondo Cafe",
-                "ID": "33",
-                "CUSTOM_ICON": "utensils.png",
-                "CUSTOM_POPUP": "<b>Arredondo Cafe<\/b><br><p>Hours Coming Soon!<\/p>"
-            }
-        },
+        
         {
             "type": "Feature",
             "geometry": {
@@ -856,44 +801,7 @@
                 "CUSTOM_POPUP": "<b>We Proudly Serve Starbucks<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -82.34634484713516,
-                    29.650201548927544,
-                    0
-                ]
-            },
-            "properties": {
-                "BLDG": "0266",
-                "ROOM": "0100A ",
-                "Name": "Moe's Southwest Grill",
-                "ID": "21",
-                "CUSTOM_ICON": "moes.png",
-                "CUSTOM_POPUP": "<b>Moe's Southwest Grill<\/b><br><p>Hours Coming Soon!<\/p>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -82.34632982216397,
-                    29.65004898591632,
-                    0
-                ]
-            },
-            "properties": {
-                "BLDG": "0266",
-                "ROOM": "0100B ",
-                "Name": "Chomp It",
-                "ID": "44",
-                "CUSTOM_ICON": "chompit.png",
-                "CUSTOM_POPUP": "<b>Chomp It<\/b><br><p>Hours Coming Soon!<\/p>"
-            }
-        },
+        
         {
             "type": "Feature",
             "geometry": {
@@ -968,25 +876,6 @@
                 "ID": "86",
                 "CUSTOM_ICON": "starbs.png",
                 "CUSTOM_POPUP": "<b>Starbucks<\/b><br><p>Hours Coming Soon!<\/p>"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -82.33827131532293,
-                    29.64658694299048,
-                    0
-                ]
-            },
-            "properties": {
-                "BLDG": "0101",
-                "ROOM": "0115 ",
-                "Name": "The Market",
-                "ID": "87",
-                "CUSTOM_ICON": "utensils.png",
-                "CUSTOM_POPUP": "<b>The Market<\/b><br><p>Hours Coming Soon!<\/p>"
             }
         }
     ]
